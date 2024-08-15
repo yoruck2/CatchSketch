@@ -10,9 +10,23 @@
 		84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */; };
 		84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */; };
 		84321E662C6DEEE000BA7FD7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E652C6DEEE000BA7FD7 /* ViewController.swift */; };
-		84321E692C6DEEE000BA7FD7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 84321E682C6DEEE000BA7FD7 /* Base */; };
 		84321E6B2C6DEEE200BA7FD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */; };
 		84321E6E2C6DEEE200BA7FD7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 84321E6D2C6DEEE200BA7FD7 /* Base */; };
+		84321E762C6DEF3500BA7FD7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 84321E752C6DEF3500BA7FD7 /* .gitignore */; };
+		84321E7E2C6DF41D00BA7FD7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E7D2C6DF41D00BA7FD7 /* NetworkService.swift */; };
+		84321E802C6DF44200BA7FD7 /* APIAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E7F2C6DF44200BA7FD7 /* APIAuth.swift */; };
+		84321E832C6E118600BA7FD7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E822C6E118600BA7FD7 /* Alamofire */; };
+		84321E862C6E119A00BA7FD7 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E852C6E119A00BA7FD7 /* IQKeyboardManagerSwift */; };
+		84321E892C6E11A300BA7FD7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E882C6E11A300BA7FD7 /* SnapKit */; };
+		84321E8C2C6E11AD00BA7FD7 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E8B2C6E11AD00BA7FD7 /* Then */; };
+		84321E8F2C6E11EC00BA7FD7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E8E2C6E11EC00BA7FD7 /* RxCocoa */; };
+		84321E912C6E11EC00BA7FD7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E902C6E11EC00BA7FD7 /* RxSwift */; };
+		84321E942C6E122D00BA7FD7 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 84321E932C6E122D00BA7FD7 /* Toast */; };
+		84321E962C6E168D00BA7FD7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E952C6E168D00BA7FD7 /* Router.swift */; };
+		84321E982C6E16C000BA7FD7 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E972C6E16C000BA7FD7 /* TargetType.swift */; };
+		84321E9D2C6E19C400BA7FD7 /* LogInQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E9C2C6E19C400BA7FD7 /* LogInQuery.swift */; };
+		84321E9F2C6E1D9400BA7FD7 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E9E2C6E1D9400BA7FD7 /* Header.swift */; };
+		84321EA22C6E1F7F00BA7FD7 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA12C6E1F7F00BA7FD7 /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +34,18 @@
 		84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		84321E652C6DEEE000BA7FD7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		84321E682C6DEEE000BA7FD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84321E6D2C6DEEE200BA7FD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84321E6F2C6DEEE200BA7FD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84321E752C6DEF3500BA7FD7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Configuration.xcconfig; sourceTree = "<group>"; };
+		84321E7D2C6DF41D00BA7FD7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		84321E7F2C6DF44200BA7FD7 /* APIAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAuth.swift; sourceTree = "<group>"; };
+		84321E952C6E168D00BA7FD7 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		84321E972C6E16C000BA7FD7 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		84321E9C2C6E19C400BA7FD7 /* LogInQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInQuery.swift; sourceTree = "<group>"; };
+		84321E9E2C6E1D9400BA7FD7 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		84321EA12C6E1F7F00BA7FD7 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +53,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84321E912C6E11EC00BA7FD7 /* RxSwift in Frameworks */,
+				84321E892C6E11A300BA7FD7 /* SnapKit in Frameworks */,
+				84321E832C6E118600BA7FD7 /* Alamofire in Frameworks */,
+				84321E8F2C6E11EC00BA7FD7 /* RxCocoa in Frameworks */,
+				84321E862C6E119A00BA7FD7 /* IQKeyboardManagerSwift in Frameworks */,
+				84321E942C6E122D00BA7FD7 /* Toast in Frameworks */,
+				84321E8C2C6E11AD00BA7FD7 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +69,7 @@
 		84321E552C6DEEE000BA7FD7 = {
 			isa = PBXGroup;
 			children = (
+				84321E752C6DEF3500BA7FD7 /* .gitignore */,
 				84321E602C6DEEE000BA7FD7 /* CatchSketch */,
 				84321E5F2C6DEEE000BA7FD7 /* Products */,
 			);
@@ -56,15 +86,86 @@
 		84321E602C6DEEE000BA7FD7 /* CatchSketch */ = {
 			isa = PBXGroup;
 			children = (
-				84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */,
-				84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */,
+				84321E782C6DF02700BA7FD7 /* App */,
+				84321EA02C6E1F7200BA7FD7 /* DB */,
+				84321E992C6E16F300BA7FD7 /* model */,
+				84321E7A2C6DF3F800BA7FD7 /* Util */,
 				84321E652C6DEEE000BA7FD7 /* ViewController.swift */,
-				84321E672C6DEEE000BA7FD7 /* Main.storyboard */,
-				84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */,
-				84321E6C2C6DEEE200BA7FD7 /* LaunchScreen.storyboard */,
+				84321E772C6DEF6300BA7FD7 /* Resource */,
 				84321E6F2C6DEEE200BA7FD7 /* Info.plist */,
 			);
 			path = CatchSketch;
+			sourceTree = "<group>";
+		};
+		84321E772C6DEF6300BA7FD7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				84321E6C2C6DEEE200BA7FD7 /* LaunchScreen.storyboard */,
+				84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */,
+				84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		84321E782C6DF02700BA7FD7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */,
+				84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		84321E7A2C6DF3F800BA7FD7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				84321E7B2C6DF3FE00BA7FD7 /* Network */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		84321E7B2C6DF3FE00BA7FD7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				84321E7D2C6DF41D00BA7FD7 /* NetworkService.swift */,
+				84321E7F2C6DF44200BA7FD7 /* APIAuth.swift */,
+				84321E952C6E168D00BA7FD7 /* Router.swift */,
+				84321E972C6E16C000BA7FD7 /* TargetType.swift */,
+				84321E9E2C6E1D9400BA7FD7 /* Header.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		84321E992C6E16F300BA7FD7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				84321E9B2C6E16FE00BA7FD7 /* ResponseModel */,
+				84321E9A2C6E16F700BA7FD7 /* RequestModel */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		84321E9A2C6E16F700BA7FD7 /* RequestModel */ = {
+			isa = PBXGroup;
+			children = (
+				84321E9C2C6E19C400BA7FD7 /* LogInQuery.swift */,
+			);
+			path = RequestModel;
+			sourceTree = "<group>";
+		};
+		84321E9B2C6E16FE00BA7FD7 /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ResponseModel;
+			sourceTree = "<group>";
+		};
+		84321EA02C6E1F7200BA7FD7 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				84321EA12C6E1F7F00BA7FD7 /* UserDefaultsManager.swift */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +184,15 @@
 			dependencies = (
 			);
 			name = CatchSketch;
+			packageProductDependencies = (
+				84321E822C6E118600BA7FD7 /* Alamofire */,
+				84321E852C6E119A00BA7FD7 /* IQKeyboardManagerSwift */,
+				84321E882C6E11A300BA7FD7 /* SnapKit */,
+				84321E8B2C6E11AD00BA7FD7 /* Then */,
+				84321E8E2C6E11EC00BA7FD7 /* RxCocoa */,
+				84321E902C6E11EC00BA7FD7 /* RxSwift */,
+				84321E932C6E122D00BA7FD7 /* Toast */,
+			);
 			productName = CatchSketch;
 			productReference = 84321E5E2C6DEEE000BA7FD7 /* CatchSketch.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +221,14 @@
 				Base,
 			);
 			mainGroup = 84321E552C6DEEE000BA7FD7;
+			packageReferences = (
+				84321E812C6E118600BA7FD7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				84321E842C6E119A00BA7FD7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				84321E872C6E11A300BA7FD7 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				84321E8A2C6E11AD00BA7FD7 /* XCRemoteSwiftPackageReference "Then" */,
+				84321E8D2C6E11EC00BA7FD7 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				84321E922C6E122D00BA7FD7 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 84321E5F2C6DEEE000BA7FD7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,9 +243,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84321E762C6DEF3500BA7FD7 /* .gitignore in Resources */,
 				84321E6B2C6DEEE200BA7FD7 /* Assets.xcassets in Resources */,
 				84321E6E2C6DEEE200BA7FD7 /* Base in Resources */,
-				84321E692C6DEEE000BA7FD7 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,22 +257,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				84321E662C6DEEE000BA7FD7 /* ViewController.swift in Sources */,
+				84321E9F2C6E1D9400BA7FD7 /* Header.swift in Sources */,
 				84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */,
+				84321E9D2C6E19C400BA7FD7 /* LogInQuery.swift in Sources */,
+				84321E802C6DF44200BA7FD7 /* APIAuth.swift in Sources */,
+				84321E7E2C6DF41D00BA7FD7 /* NetworkService.swift in Sources */,
+				84321EA22C6E1F7F00BA7FD7 /* UserDefaultsManager.swift in Sources */,
+				84321E962C6E168D00BA7FD7 /* Router.swift in Sources */,
 				84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */,
+				84321E982C6E16C000BA7FD7 /* TargetType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		84321E672C6DEEE000BA7FD7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				84321E682C6DEEE000BA7FD7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		84321E6C2C6DEEE200BA7FD7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -168,6 +285,7 @@
 /* Begin XCBuildConfiguration section */
 		84321E702C6DEEE200BA7FD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -218,7 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -231,6 +349,7 @@
 		};
 		84321E712C6DEEE200BA7FD7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -275,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -287,6 +406,7 @@
 		};
 		84321E732C6DEEE200BA7FD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -297,9 +417,9 @@
 				INFOPLIST_FILE = CatchSketch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,14 +427,19 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yoruck2.CatchSketch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		84321E742C6DEEE200BA7FD7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84321E792C6DF08C00BA7FD7 /* Configuration.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -325,9 +450,9 @@
 				INFOPLIST_FILE = CatchSketch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,9 +460,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yoruck2.CatchSketch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -363,6 +492,95 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84321E812C6E118600BA7FD7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		84321E842C6E119A00BA7FD7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
+		84321E872C6E11A300BA7FD7 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		84321E8A2C6E11AD00BA7FD7 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		84321E8D2C6E11EC00BA7FD7 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+		84321E922C6E122D00BA7FD7 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84321E822C6E118600BA7FD7 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E812C6E118600BA7FD7 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		84321E852C6E119A00BA7FD7 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E842C6E119A00BA7FD7 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		84321E882C6E11A300BA7FD7 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E872C6E11A300BA7FD7 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		84321E8B2C6E11AD00BA7FD7 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E8A2C6E11AD00BA7FD7 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		84321E8E2C6E11EC00BA7FD7 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E8D2C6E11EC00BA7FD7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		84321E902C6E11EC00BA7FD7 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E8D2C6E11EC00BA7FD7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		84321E932C6E122D00BA7FD7 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84321E922C6E122D00BA7FD7 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 84321E562C6DEEE000BA7FD7 /* Project object */;
 }
