@@ -12,14 +12,35 @@ import RxSwift
 struct NetworkService {
     
     static let shared = NetworkService()
-    let
     private init() {}
     
-    func fetchJokeWithResult() -> Single<Result<Joke, AFError>> {
+    func requestC<T: Decodable>(api: Router,
+                                model: T.Type) {
+        
+        AF.request(api)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: T.self) { response in
+                print(response.request)
+                print("Response: \(response.response)")
+                print("Result: \(response.response?.statusCode)")
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
+    
+    func requestSingle<T: Decodable>(api: Router,
+                               model: T.Type) -> Single<Result<T, Error>> {
         return Single.create { observer in
-            AF.request(self.url)
+            AF.request(api)
                 .validate(statusCode: 200..<300)
-                .responseDecodable(of: Joke.self) { response in
+                .responseDecodable(of: T.self) { response in
+                    print("Request: \(response.request)")
+                    print("Response: \(response.response)")
+                    print("Result: \(response.response?.statusCode)")
                     switch response.result {
                     case .success(let value):
                         observer(.success(.success(value)))
@@ -28,25 +49,6 @@ struct NetworkService {
                     }
                 }
             return Disposables.create()
-        }.debug("JOKE API 통신")
-    }
-    
-    func request<T: Decodable>(api: APIRouter,
-                               model: T.Type,
-                               completion: @escaping (Result<T, AFError>) -> Void) {
-        AF.request(api)
-            .validate(statusCode: 200..<300)
-            .responseDecodable(of: T.self) { response in
-                switch response.result {
-                case .success(let value):
-                    completion(.success(value))
-//                    dump(value)
-                    print("성공")
-                case .failure(let error):
-                    completion(.failure(error))
-                    print("실패")
-                    dump(error)
-                }
-            }
+        }.debug("requestSingle")
     }
 }
