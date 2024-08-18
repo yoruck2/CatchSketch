@@ -10,35 +10,15 @@ import RxSwift
 import RxCocoa
 
 class SignInViewController: BaseViewController<SignInView> {
-    let disposeBag = DisposeBag()
     let viewModel = SignInViewModel()
-    
-//    let basicColor = Observable.just(UIColor.systemBlue)
-    let loginQuery = AuthQuery.LogIn(email: "yoruck2", password: "1234")
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NetworkService.shared.requestC(api: .auth(.login(query: loginQuery)),
-//                                       model: LogInResponse.self)
-        
-        //        let aa = NetworkService.shared.request(api: .auth(.login(query: loginQuery)),
-        //                                      model: LogInResponse.self)
-        //            .catch { error in
-        ////                return Single.just(.failure(.responseValidationFailed(reason: .customValidationFailed(error: error))))
-        //                return Single.never()
-        //            }
-        //        aa.subscribe(with: self) { owner , ss in
-        //            switch ss {
-        //            case .success(let value):
-        //                dump(value)
-        //            case .failure(let error):
-        //                print(error.responseCode)
-        //            }
-        //        }.disposed(by: disposeBag)
+
     }
     
     override func bind() {
-        
         let input = SignInViewModel.Input(tap: rootView.signInButton.rx.tap,
                                           emailText: rootView.emailTextField.rx.text.orEmpty,
                                           passwordText: rootView.passwordTextField.rx.text.orEmpty)
