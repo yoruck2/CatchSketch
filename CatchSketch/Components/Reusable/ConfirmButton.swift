@@ -15,7 +15,7 @@ final class ConfirmButton: UIButton {
         
         // MARK: observable 내부적으로 결국 didSet으로 바인딩을 하고있긴 하다 -
         didSet {
-            backgroundColor = isEnabled ? .blue : .gray
+            updateAppearance()
         }
     }
     
@@ -23,9 +23,13 @@ final class ConfirmButton: UIButton {
         super.init(frame: .zero)
         
         setTitle(title, for: .normal)
-        setTitleColor(.white, for: .normal)
-        backgroundColor = .blue
-        layer.cornerRadius = 10
+        titleLabel?.font = CatchSketch.Font.bold20
+        layer.cornerRadius = 15
+        updateAppearance()
+    }
+    private func updateAppearance() {
+        backgroundColor = isEnabled ? CatchSketch.Color.mainGreen : .gray
+        setTitleColor(isEnabled ? .white : .lightGray, for: .normal)
     }
     
     @available(*, unavailable)
