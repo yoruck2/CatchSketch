@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SignInView: BaseView {
+final class LogInView: BaseView {
     
     let emailTextField = SignTextField(placeholderText: "이메일을 입력해주세요")
     let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요")
