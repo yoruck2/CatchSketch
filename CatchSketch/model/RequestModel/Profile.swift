@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Profile: Encodable {
+struct Profile: Codable {
     
     struct Edit: Encodable {
         let nick: String?

@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct AccesToken: Decodable {
+    let accessToken: String
+}
+

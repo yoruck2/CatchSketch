@@ -8,7 +8,7 @@
 import Foundation
 
 struct AuthQuery {
-    struct Join: Encodable {
+    struct SignUp: Codable {
         let email: String
         let password: String
         let nick: String
@@ -20,5 +20,6 @@ struct AuthQuery {
         let email: String
         let password: String
     }
+    
 }
 
