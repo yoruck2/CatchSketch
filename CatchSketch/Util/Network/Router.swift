@@ -14,16 +14,16 @@ enum Router {
     case profile(ProfileEndpoint)
     
     enum AuthEndpoint {
-        case join(query: AuthQuery.Join)
+        case SignUp(query: AuthQuery.SignUp)
         case login(query: AuthQuery.LogIn)
         case emailValidation(query: AuthQuery.EmailValidation)
-        case refresh
+        case tokenRefresh
     }
     
     enum PostEndpoint {
         case uploadImage(files: Post.ImageUpload)
         case create(post: Post)
-        case postView(cursor: String, limit: Int)
+        case postView(cursor: String? = nil, limit: Int? = nil)
     }
     enum ProfileEndpoint {
         case fetch
@@ -37,9 +37,9 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-            case .join, .login, .emailValidation: 
+            case .SignUp, .login, .emailValidation: 
                 return .post
-            case .refresh: 
+            case .tokenRefresh: 
                 return .get
             }
         case .profile(let endpoint):
@@ -63,13 +63,13 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-            case .join: 
+            case .SignUp: 
                 return "/users/join"
             case .login:
                 return "/users/login"
             case .emailValidation:
                 return "/users/email"
-            case .refresh:
+            case .tokenRefresh:
                 return "/auth/refresh"
             }
         case .profile:
@@ -92,10 +92,9 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-                // 안넣어도 되는지 확인
-            case .join, .login, .emailValidation:
+            case .SignUp, .login, .emailValidation:
                 headers[Header.contentType.rawValue] = Header.json.rawValue
-            case .refresh:
+            case .tokenRefresh:
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
                 headers[Header.refresh.rawValue] = UserDefaultsManager.shared.refreshToken
             }
@@ -126,7 +125,7 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-            case .join, .login, .emailValidation, .refresh:
+            case .SignUp, .login, .emailValidation, .tokenRefresh:
                 return nil
             }
         case .profile(let endpoint):
@@ -152,13 +151,13 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-            case .join(let query):
+            case .SignUp(let query):
                 return try? JSONEncoder.encode(with: query)
             case .login(query: let query):
                 return try? JSONEncoder.encode(with: query)
             case .emailValidation(query: let query):
                 return try? JSONEncoder.encode(with: query)
-            case .refresh:
+            case .tokenRefresh:
                 return nil
             }
         case .profile(let endpoint):
