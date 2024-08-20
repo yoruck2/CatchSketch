@@ -9,11 +9,11 @@ import Foundation
 
 extension CatchSketch {
     enum SystemImage {
-        static let camera = "camera.fill"
-        static let topicIcon = "chart.line.uptrend.xyaxis"
-        static let randomIcon = "play.square"
-        static let searchIcon = "magnifyingglass"
-        static let favoriteVC = "heart"
-        static let star = "star.fill"
+        static let pictures = "photo.stack"
+        static let post = "plus.circle"
+        static let profile = "person.crop.circle"
+//        static let searchIcon = "magnifyingglass"
+//        static let favoriteVC = "heart"
+//        static let star = "star.fill"
     }
 }

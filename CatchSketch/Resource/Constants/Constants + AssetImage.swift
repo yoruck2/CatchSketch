@@ -11,7 +11,7 @@ enum CatchSketch {}
 
 extension CatchSketch {
     enum AssetImage {
-
+        static let tornPaper = "tornPaper"
         
     }
 }

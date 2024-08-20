@@ -8,8 +8,14 @@
 import UIKit
 
 extension CatchSketch {
-    enum AssetColor {
-//        static let mainBlue = UIColor.mainBlue
+    enum Color {
+        static let mainGreen = UIColor.mainGreen
+        static let darkGreen = UIColor.darkGreen
+        static let lightGreen = UIColor.lightGreen
+        static let alertRed = UIColor.alertRed
+        static let textBlack = UIColor.textBlack
+        static let containerPink = UIColor.containerPink
+        static let skyBlue = UIColor.skyBlue
 //        static let black = UIColor.photoBlack
 //        static let gray = UIColor.photoGray
 //        static let khakiGray = UIColor.photoKhakiGray
