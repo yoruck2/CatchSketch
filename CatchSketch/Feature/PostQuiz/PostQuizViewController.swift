@@ -5,4 +5,8 @@
 //  Created by dopamint on 8/19/24.
 //
 
-import Foundation
+import UIKit
+
+final class PostQuizViewController: BaseViewController<PostQuizView> {
+    
+}
