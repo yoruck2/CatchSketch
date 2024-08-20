@@ -9,9 +9,10 @@ import UIKit
 
 class BaseViewController<RootView: UIView>: UIViewController {
     
-    let rootView = RootView()
+    let rootView: RootView
     
-    init() {
+    init(rootView: RootView) {
+        self.rootView = rootView
         super.init(nibName: .none, bundle: .none)
     }
     override func loadView() {
