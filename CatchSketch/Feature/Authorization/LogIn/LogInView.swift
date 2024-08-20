@@ -10,10 +10,16 @@ import SnapKit
 
 final class LogInView: BaseView {
     
-    let emailTextField = SignTextField(placeholderText: "이메일을 입력해주세요")
-    let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요")
+    let emailTextField = SignTextField(placeholderText: "이메일을 입력해주세요").then {
+        $0.text = "yoruck2"
+    }
+    let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요").then {
+        $0.text = ""
+    }
     let signInButton = ConfirmButton(title: "로그인")
-    let signUpButton = ConfirmButton(title: "회원가입")
+    let signUpButton = ConfirmButton(title: "회원가입").then {
+        $0.backgroundColor = CatchSketch.Color.darkGreen
+    }
     
     override func configureLayout() {
         addSubview(emailTextField)

@@ -19,6 +19,7 @@ final class LogInViewModel: BaseViewModel {
     
     struct Output {
         let loginResult: Observable<Result<LogInResponse, Error>>
+        let isLoginValid: Observable<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -31,13 +32,21 @@ final class LogInViewModel: BaseViewModel {
             .throttle(.seconds(1),latest: false, scheduler: MainScheduler.instance)
             .withLatestFrom(loginQuery)
             .flatMapLatest { query in
-                NetworkService.shared.signIn(query: .auth(.login(query: query)), 
-                                             model: LogInResponse.self)
+                NetworkService.shared.logIn(query: .auth(.login(query: query)))
                 .catch { error in
+//                    if (error as! APIError) == .expiredRefreshToken {
+//                        return .just(.failure(error as! APIError))
+//                    }
                     return .just(.failure(error))
                 }
             }
             .share(replay: 1)
-        return Output(loginResult: result)
+        
+        let isLoginValid = Observable.combineLatest(input.emailText, 
+                                                    input.passwordText)
+            .map { !$0.0.isEmpty && !$0.1.isEmpty }
+        
+        return Output(loginResult: result, 
+                      isLoginValid: isLoginValid)
     }
 }

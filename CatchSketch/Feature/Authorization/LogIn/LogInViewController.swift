@@ -25,16 +25,21 @@ final class LogInViewController: BaseViewController<LogInView> {
                 case .success(let value):
                     UserDefaultsManager.shared.accessToken = value.accessToken
                     UserDefaultsManager.shared.refreshToken = value.refreshToken
-                    owner.changeRootViewController(MainFeedViewController())
+                    owner.changeRootViewController(CatchSketchTabBarController())
                 case .failure(let error):
+                    owner.showAlert(title: "로그인 실패", message: "계정을 확인해주세요. 🥲")
                     print(error)
                 }
             }.disposed(by: disposeBag)
         
+        output.isLoginValid
+            .bind(with: self) { owner, value in
+                owner.rootView.signInButton.isEnabled = value
+            }.disposed(by: disposeBag)
+        
         rootView.signUpButton.rx.tap
             .bind(with: self) { owner, _ in
-                owner.navigationController?
-                    .present(SignUpViewController(), animated: true)
+                owner.present(SignUpViewController(rootView: SignUpView()), animated: true)
             }
             .disposed(by: disposeBag)
     }
