@@ -15,33 +15,18 @@ final class SignUpView: BaseView {
         $0.font = .systemFont(ofSize: 24, weight: .bold)
     }
     
-    private let emailTextField = UITextField().then {
-        $0.placeholder = "이메일"
-        $0.borderStyle = .roundedRect
-    }
+    let emailTextField = SignTextField(placeholderText: "이메일")
+    let passwordTextField = SignTextField(placeholderText: "비밀번호")
+    let nicknameTextField = SignTextField(placeholderText: "닉네임")
     
-    // 이메일 유효성 검사 필요
-    
-    private let passwordTextField = UITextField().then {
-        $0.placeholder = "비밀번호"
-        $0.borderStyle = .roundedRect
-        $0.isSecureTextEntry = true
-    }
-    
-    let signUpButton = UIButton().then {
-        $0.setTitle("가입하기", for: .normal)
-        $0.backgroundColor = .systemBlue
-        $0.setTitleColor(.white, for: .normal)
-        $0.layer.cornerRadius = 5
-    }
+    let signUpButton = ConfirmButton(title: "가입하기")
 
     override func configureLayout() {
-    
-        backgroundColor = .white
         
         addSubview(titleLabel)
         addSubview(emailTextField)
         addSubview(passwordTextField)
+        addSubview(nicknameTextField)
         addSubview(signUpButton)
         
         titleLabel.snp.makeConstraints { make in
@@ -50,7 +35,7 @@ final class SignUpView: BaseView {
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(40)
+            make.top.equalTo(titleLabel.snp.bottom).offset(100)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(44)
         }
@@ -60,9 +45,14 @@ final class SignUpView: BaseView {
             make.left.right.equalTo(emailTextField)
             make.height.equalTo(44)
         }
+        nicknameTextField.snp.makeConstraints { make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(20)
+            make.left.right.equalTo(emailTextField)
+            make.height.equalTo(44)
+        }
         
         signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(40)
+            make.top.equalTo(nicknameTextField.snp.bottom).offset(40)
             make.left.right.equalTo(emailTextField)
             make.height.equalTo(44)
         }
