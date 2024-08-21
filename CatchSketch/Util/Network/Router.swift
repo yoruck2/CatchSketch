@@ -23,7 +23,7 @@ enum Router {
     enum PostEndpoint {
         case uploadImage(files: Post.ImageUpload)
         case create(post: Post)
-        case postView(cursor: String? = nil, limit: Int? = nil)
+        case postView(cursor: String?, limit: String?)
     }
     enum ProfileEndpoint {
         case fetch
@@ -78,10 +78,8 @@ extension Router: TargetType {
             switch endpoint {
             case .uploadImage: 
                 return "/posts/images"
-            case .create:
+            case .postView, .create:
                 return "/posts"
-            case .postView:
-                return "/posts/posts"
             }
         }
     }
@@ -142,7 +140,17 @@ extension Router: TargetType {
             case .create:
                 return nil
             case .postView(let cursor, let limit):
-                return ["next": cursor, "limit": limit]
+//
+//                if cursor == "", limit == "" {
+//                    return nil
+//                }
+//                if limit == "" {
+//                    return ["next": cursor]
+//                }
+//                if cursor == "" {
+//                    return ["limit": limit]
+//                }
+                return ["next": cursor ?? "", "limit": limit ?? ""]
             }
         }
     }

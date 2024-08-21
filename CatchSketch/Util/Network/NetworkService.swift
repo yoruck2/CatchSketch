@@ -5,14 +5,16 @@
 //  Created by dopamint on 8/15/24.
 //
 
-import Foundation
 import Alamofire
 import RxSwift
+import UIKit
 
 class NetworkService {
     
     static let shared = NetworkService()
     private init() {}
+    
+    var refreshTokenExpired: (() -> Void)?
     
     private func request<T: Decodable>(api: Router) -> Single<Result<T, Error>> {
         return Single.create { observer in
@@ -26,8 +28,12 @@ class NetworkService {
                         print("✅✅✅✅✅✅✅")
                         observer(.success(.success(value)))
                     case .failure(let error):
-                        guard let errorCode = error.responseCode else { return }
-                        print(errorCode)
+                        print("왜안되나영")
+                        guard let errorCode = error.responseCode else {
+                            print("✨ 여기 오면 안돼")
+                            return
+                        }
+                        //                        print(errorCode)
                         let apiError = self.handleError(errorCode: errorCode)
                         observer(.success(.failure(apiError)))
                     }
@@ -36,26 +42,27 @@ class NetworkService {
         }.debug("request")
     }
     private func handleError(errorCode: Int) -> APIError {
-        var error = APIError.toAPIError(errorCode)
+        let error = APIError.toAPIError(errorCode)
         print(error.description)
-        if error == .expiredAccessToken {
-            refreshToken()
-                .subscribe(with: self) { owner, result in
-                    switch result {
-                    case .success(let value):
-                        UserDefaultsManager.shared.accessToken = value.accessToken
-                    case .failure(let error): break
-                        
-                    }
-                }
-        }
         
+        switch error {
+        case .expiredAccessToken:
+            refreshToken()
+                .subscribe(onSuccess: { result in
+                    if case .success(let value) = result {
+                        UserDefaultsManager.shared.accessToken = value.accessToken
+                    }
+                })
+        case .expiredRefreshToken:
+            DispatchQueue.main.async {
+                self.refreshTokenExpired?()
+            }
+        default:
+            break
+        }
         return error
     }
     
-    func refreshToken() -> Single<Result<AccesToken, Error>> {
-        return request(api: .auth(.tokenRefresh))
-    }
     //        if let urlError = error.underlyingError as? URLError, urlError.code == .badURL {
     //            return .invalidURL
     //        }
@@ -70,5 +77,11 @@ extension NetworkService {
     }
     func signUp(query: Router) -> Single<Result<Profile, Error>> {
         return request(api: query)
+    }
+    func post(query: Router) -> Single<Result<PostResponse, Error>> {
+        return request(api: query)
+    }
+    private func refreshToken() -> Single<Result<AccesToken, Error>> {
+        return request(api: .auth(.tokenRefresh))
     }
 }
