@@ -17,11 +17,10 @@ final class SignUpViewModel: BaseViewModel {
         let passwordText: ControlProperty<String>
         let nicknameText: ControlProperty<String>
     }
-    
     struct Output {
         let signUpResult: Observable<Result<Profile, Error>>
         let isSignUpVaild: Observable<Bool>
-//        let isValidEmail: Observable<Bool>
+        //        let isValidEmail: Observable<Bool>
     }
     
     func transform(input: Input) -> Output {
@@ -41,8 +40,8 @@ final class SignUpViewModel: BaseViewModel {
             }
             .share(replay: 1)
         
-//        let isEmailValid = input.emailText
-//            .map(matchesEmailPattern)
+        //        let isEmailValid = input.emailText
+        //            .map(matchesEmailPattern)
         
         let isSignUpVaild = Observable.combineLatest(input.emailText,
                                                      input.passwordText,

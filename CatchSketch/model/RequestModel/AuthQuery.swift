@@ -20,6 +20,5 @@ struct AuthQuery {
         let email: String
         let password: String
     }
-    
 }
 

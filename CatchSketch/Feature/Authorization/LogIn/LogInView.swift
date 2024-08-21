@@ -14,7 +14,7 @@ final class LogInView: BaseView {
         $0.text = "yoruck2"
     }
     let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요").then {
-        $0.text = ""
+        $0.text = "1234"
     }
     let signInButton = ConfirmButton(title: "로그인")
     let signUpButton = ConfirmButton(title: "회원가입").then {
