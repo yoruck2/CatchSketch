@@ -42,4 +42,11 @@ extension UIViewController {
             self.present(alert, animated: true, completion: completion)
         }
     }
+    
+    func setupRefreshTokenExpiredHandler() {
+        NetworkService.shared.refreshTokenExpired = { [weak self] in
+            let loginVC = LogInViewController(rootView: LogInView())
+            self?.changeRootViewController(loginVC)
+        }
+    }
 }
