@@ -22,25 +22,36 @@ class NetworkService {
                 .validate(statusCode: 200..<300)
                 .responseDecodable(of: T.self) { response in
                     print("Request: \(String(describing: response.request))")
-                    print("Result: \(String(describing: response.response?.statusCode))")
+                    print("Response: \(String(describing: response.response))")
+                    print("Result: \(String(describing: response.result))")
+                    
+                    //                    if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                    //                        print("Response Data: \(str)")
+                    //                    }
+                    
                     switch response.result {
                     case .success(let value):
                         print("✅✅✅✅✅✅✅")
                         observer(.success(.success(value)))
                     case .failure(let error):
-                        print("왜안되나영")
+                        print("❌❌❌❌❌❌❌")
+                        print("Error: \(error)")
+                        if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                            print("Error Response Data: \(str)")
+                        }
                         guard let errorCode = error.responseCode else {
-                            print("✨ 여기 오면 안돼")
+                            observer(.success(.failure(error)))
                             return
                         }
-                        //                        print(errorCode)
+                        print("Error Code: \(errorCode)")
                         let apiError = self.handleError(errorCode: errorCode)
                         observer(.success(.failure(apiError)))
                     }
                 }
             return Disposables.create()
-        }.debug("request")
+        }/*.debug("request")*/
     }
+    
     private func handleError(errorCode: Int) -> APIError {
         let error = APIError.toAPIError(errorCode)
         print(error.description)
@@ -62,13 +73,6 @@ class NetworkService {
         }
         return error
     }
-    
-    //        if let urlError = error.underlyingError as? URLError, urlError.code == .badURL {
-    //            return .invalidURL
-    //        }
-    //        if error.isResponseSerializationError {
-    //            return .decodingError
-    //
 }
 
 extension NetworkService {

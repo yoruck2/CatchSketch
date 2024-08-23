@@ -21,7 +21,8 @@ class MainFeedView: BaseView {
         collectionView.backgroundColor = .white
         collectionView.decelerationRate = .fast
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: height * 0.2, left: 0, bottom: height * 0.2, right: 0)
+
+        collectionView.contentInset = UIEdgeInsets(top: height * 0.1, left: 0, bottom: height * 0.1, right: 0)
         return collectionView
     }()
     

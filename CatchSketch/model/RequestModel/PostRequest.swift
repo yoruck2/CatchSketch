@@ -24,9 +24,9 @@ struct PostRequest: Encodable {
         let files: [Data]
     }
     
-    struct View: Encodable {
-        let product_id: String?
-        let next: String?
-        let limit: String?
-    }
+//    struct View: Encodable {
+//        let product_id: String?
+//        let next: String?
+//        let limit: String?
+//    }
 }

@@ -27,9 +27,10 @@ final class MainFeedViewModel {
     }
     
     func transform(input: Input) -> Output {
+        // Test
         let result = input.viewDidLoadTrigger
             .flatMap { _ in
-                NetworkService.shared.post(query: .post(.postView(cursor: "", limit: "")))
+                NetworkService.shared.post(query: .post(.postView()))
             }
         return Output(refreshResult: result)
     }

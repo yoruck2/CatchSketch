@@ -34,9 +34,9 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
         
         rootView.mainFeedCollectionView.rx.modelSelected(String.self)
             .subscribe(onNext: { [weak self] item in
-//                NetworkService.shared.logIn(query: .post(.postView()))
-//                    .subscribe()
-//                    .disposed(by: self?.disposeBag ?? DisposeBag())
+                //                NetworkService.shared.logIn(query: .post(.postView()))
+                //                    .subscribe()
+                //                    .disposed(by: self?.disposeBag ?? DisposeBag())
                 self?.showAlert(title: "눌림", message: "확인")
             })
             .disposed(by: disposeBag)
@@ -45,7 +45,7 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
             .bind(with: self) { owner, value in
                 switch value {
                 case .success(let value):
-                    print("🔥🔥🔥🔥🔥")
+                    print("✨ 토큰갱신 성공")
                     dump(value)
                 case .failure(let error):
                     
