@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Post: Encodable {
+struct PostRequest: Encodable {
     let product_id: String?
     
     let title: String?
