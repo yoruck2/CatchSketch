@@ -28,7 +28,7 @@
 		84321E9F2C6E1D9400BA7FD7 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E9E2C6E1D9400BA7FD7 /* Header.swift */; };
 		84321EA22C6E1F7F00BA7FD7 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA12C6E1F7F00BA7FD7 /* UserDefaultsManager.swift */; };
 		84321EA52C6F277600BA7FD7 /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA42C6F277600BA7FD7 /* JSONEncoder.swift */; };
-		84321EA92C6F4FC100BA7FD7 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA82C6F4FC100BA7FD7 /* Post.swift */; };
+		84321EA92C6F4FC100BA7FD7 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA82C6F4FC100BA7FD7 /* PostRequest.swift */; };
 		84321EAB2C6FC36400BA7FD7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EAA2C6FC36400BA7FD7 /* Profile.swift */; };
 		84321EAE2C6FE19100BA7FD7 /* LogInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EAD2C6FE19100BA7FD7 /* LogInResponse.swift */; };
 		84B1C4C42C7360550017585A /* MainFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */; };
@@ -61,6 +61,11 @@
 		84D940D62C724D060054773B /* MainFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D940D52C724D060054773B /* MainFeedViewModel.swift */; };
 		84D940D82C7257230054773B /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D940D72C7257230054773B /* APIError.swift */; };
 		84D940DA2C726E050054773B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D940D92C726E050054773B /* SignUpViewModel.swift */; };
+		84DFFB742C7730190014EAD3 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB732C7730190014EAD3 /* CustomTabBar.swift */; };
+		84DFFB772C776A810014EAD3 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB762C776A810014EAD3 /* DrawViewController.swift */; };
+		84DFFB792C776AA00014EAD3 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB782C776AA00014EAD3 /* DrawView.swift */; };
+		84DFFB7B2C786C9C0014EAD3 /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */; };
+		84DFFB7D2C78C5D10014EAD3 /* PostQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */; };
 		84F631C52C760792005D4C06 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F631C42C760792005D4C06 /* PostResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +87,7 @@
 		84321E9E2C6E1D9400BA7FD7 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		84321EA12C6E1F7F00BA7FD7 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		84321EA42C6F277600BA7FD7 /* JSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoder.swift; sourceTree = "<group>"; };
-		84321EA82C6F4FC100BA7FD7 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		84321EA82C6F4FC100BA7FD7 /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		84321EAA2C6FC36400BA7FD7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		84321EAD2C6FE19100BA7FD7 /* LogInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInResponse.swift; sourceTree = "<group>"; };
 		84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -115,6 +120,11 @@
 		84D940D52C724D060054773B /* MainFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedViewModel.swift; sourceTree = "<group>"; };
 		84D940D72C7257230054773B /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		84D940D92C726E050054773B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		84DFFB732C7730190014EAD3 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		84DFFB762C776A810014EAD3 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
+		84DFFB782C776AA00014EAD3 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewModel.swift; sourceTree = "<group>"; };
+		84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuizViewModel.swift; sourceTree = "<group>"; };
 		84F631C42C760792005D4C06 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,7 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				84321E9C2C6E19C400BA7FD7 /* AuthQuery.swift */,
-				84321EA82C6F4FC100BA7FD7 /* Post.swift */,
+				84321EA82C6F4FC100BA7FD7 /* PostRequest.swift */,
 				84321EAA2C6FC36400BA7FD7 /* Profile.swift */,
 			);
 			path = RequestModel;
@@ -283,6 +293,8 @@
 			children = (
 				84B1C4CB2C7368EA0017585A /* PostQuizViewController.swift */,
 				84B1C4CD2C7369030017585A /* PostQuizView.swift */,
+				84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */,
+				84DFFB752C776A520014EAD3 /* DrawViewController */,
 			);
 			path = PostQuiz;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 			children = (
 				84D940C52C71D92D0054773B /* Reusable */,
 				84D940B32C71D1F10054773B /* BaseViews */,
+				84DFFB732C7730190014EAD3 /* CustomTabBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -383,6 +396,16 @@
 				84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */,
 			);
 			path = MainFeed;
+			sourceTree = "<group>";
+		};
+		84DFFB752C776A520014EAD3 /* DrawViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84DFFB762C776A810014EAD3 /* DrawViewController.swift */,
+				84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */,
+				84DFFB782C776AA00014EAD3 /* DrawView.swift */,
+			);
+			path = DrawViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,8 +498,10 @@
 			files = (
 				84321EAE2C6FE19100BA7FD7 /* LogInResponse.swift in Sources */,
 				84D940D42C724CEC0054773B /* MainFeedView.swift in Sources */,
+				84DFFB792C776AA00014EAD3 /* DrawView.swift in Sources */,
 				84321E662C6DEEE000BA7FD7 /* SignUpView.swift in Sources */,
 				84B1C4C92C7368910017585A /* CatchSketchNavigationController.swift in Sources */,
+				84DFFB7D2C78C5D10014EAD3 /* PostQuizViewModel.swift in Sources */,
 				84B1C4CC2C7368EA0017585A /* PostQuizViewController.swift in Sources */,
 				84D940D82C7257230054773B /* APIError.swift in Sources */,
 				84D940D62C724D060054773B /* MainFeedViewModel.swift in Sources */,
@@ -489,12 +514,13 @@
 				84321EAB2C6FC36400BA7FD7 /* Profile.swift in Sources */,
 				84D940B62C71D1F10054773B /* BaseViewController.swift in Sources */,
 				84D940C02C71D2500054773B /* Constants + Font.swift in Sources */,
-				84321EA92C6F4FC100BA7FD7 /* Post.swift in Sources */,
+				84321EA92C6F4FC100BA7FD7 /* PostRequest.swift in Sources */,
 				84D940AF2C71D1A50054773B /* LogInView.swift in Sources */,
 				84321E9D2C6E19C400BA7FD7 /* AuthQuery.swift in Sources */,
 				84321EA52C6F277600BA7FD7 /* JSONEncoder.swift in Sources */,
 				84D940BF2C71D2500054773B /* Constants + AssetImage.swift in Sources */,
 				84321E802C6DF44200BA7FD7 /* APIAuth.swift in Sources */,
+				84DFFB742C7730190014EAD3 /* CustomTabBar.swift in Sources */,
 				84D940AA2C71CF5E0054773B /* SignUpViewController.swift in Sources */,
 				84D940BE2C71D2500054773B /* Constants + AssetColor.swift in Sources */,
 				84B1C4CE2C7369030017585A /* PostQuizView.swift in Sources */,
@@ -508,7 +534,9 @@
 				84D940DA2C726E050054773B /* SignUpViewModel.swift in Sources */,
 				84B1C4FB2C7502B70017585A /* Reactive+.swift in Sources */,
 				84321E962C6E168D00BA7FD7 /* Router.swift in Sources */,
+				84DFFB772C776A810014EAD3 /* DrawViewController.swift in Sources */,
 				84D940B52C71D1F10054773B /* BaseView.swift in Sources */,
+				84DFFB7B2C786C9C0014EAD3 /* DrawViewModel.swift in Sources */,
 				84B1C4C42C7360550017585A /* MainFeedCollectionViewCell.swift in Sources */,
 				84D940C92C71D96F0054773B /* ConfirmButton.swift in Sources */,
 				84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */,
