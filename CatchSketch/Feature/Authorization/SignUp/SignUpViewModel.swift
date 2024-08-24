@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class SignUpViewModel: BaseViewModel {
+final class SignUpViewModel {
     
     struct Input {
         let tap: ControlEvent<Void>
