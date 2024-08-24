@@ -12,7 +12,7 @@ import Then
 final class PostQuizView: BaseView {
     
     let quizImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.backgroundColor = .lightGray
         $0.contentMode = .scaleToFill

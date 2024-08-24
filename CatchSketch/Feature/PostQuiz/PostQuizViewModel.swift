@@ -12,33 +12,38 @@ import PencilKit
 import UIKit
 
 class PostQuizViewModel {
-    let currentDrawing: BehaviorRelay<PKDrawing?>
-    let currentImage: BehaviorRelay<UIImage?>
-    
     struct Input {
-        let drawButtonTapped: Observable<Void>
+        let drawButtonTapped: ControlEvent<Void>
+        let drawingUpdated: Observable<(PKDrawing, UIImage)>
     }
     
     struct Output {
-        let showDrawViewController: Observable<PKDrawing?>
+        let currentDrawing: Driver<PKDrawing?>
+        let currentImage: Driver<UIImage?>
+        let showDrawViewController: Driver<PKDrawing?>
     }
     
-    init() {
-        self.currentDrawing = BehaviorRelay<PKDrawing?>(value: nil)
-        self.currentImage = BehaviorRelay<UIImage?>(value: nil)
-    }
+    private let disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        let showDrawViewController = input.drawButtonTapped
-            .withLatestFrom(currentDrawing)
+        let drawingRelay = BehaviorRelay<PKDrawing?>(value: nil)
+        let imageRelay = BehaviorRelay<UIImage?>(value: nil)
         
-        return Output(showDrawViewController: showDrawViewController)
-    }
-    
-    func updateDrawingAndImage(_ drawing: PKDrawing, _ image: UIImage) {
-        currentDrawing.accept(drawing)
-        currentImage.accept(image)
+        input.drawingUpdated
+            .subscribe(onNext: { drawing, image in
+                drawingRelay.accept(drawing)
+                imageRelay.accept(image)
+            })
+            .disposed(by: disposeBag)
+        
+        let showDrawViewController = input.drawButtonTapped
+            .withLatestFrom(drawingRelay)
+            .asDriver(onErrorDriveWith: .empty())
+        
+        return Output(
+            currentDrawing: drawingRelay.asDriver(),
+            currentImage: imageRelay.asDriver(),
+            showDrawViewController: showDrawViewController
+        )
     }
 }
-
-

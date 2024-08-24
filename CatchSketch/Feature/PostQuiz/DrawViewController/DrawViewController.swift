@@ -11,29 +11,34 @@ import RxSwift
 import RxCocoa
 
 class DrawViewController: BaseViewController<DrawView> {
-    private let viewModel: DrawViewModel
+    let viewModel = DrawViewModel()
     private let disposeBag = DisposeBag()
-    private let drawingChangedSubject = PublishSubject<PKDrawing>()
+    
+    private let drawingChanged = PublishSubject<PKDrawing>()
+    private let canvasRect = BehaviorSubject<CGRect>(value: .zero)
     var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
     
     private lazy var saveButton: UIBarButtonItem = {
-        return UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
+        UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
     }()
-
-    init(rootView: DrawView, viewModel: DrawViewModel) {
-        self.viewModel = viewModel
+    
+    private lazy var backButton: UIBarButtonItem = {
+        UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
+    }()
+    
+    init(rootView: DrawView, initialDrawing: PKDrawing?) {
         super.init(rootView: rootView)
+        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.leftBarButtonItem = backButton
+        
+        bindViewModel(initialDrawing: initialDrawing)
+        setupCanvas()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCanvas()
-        setupNavigationItem()
-        bindViewModel()
+    // 화면 레이아웃이 완료되면, 캔버스의 현재 크기와 위치 정보를 가지고 구독한 곳에 알려준다
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        canvasRect.onNext(rootView.canvasView.bounds)
     }
     
     private func setupCanvas() {
@@ -43,102 +48,59 @@ class DrawViewController: BaseViewController<DrawView> {
         rootView.canvasView.becomeFirstResponder()
     }
     
-    private func setupNavigationItem() {
-        navigationItem.rightBarButtonItem = saveButton
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(backButtonTapped))
-    }
-    
-    private func bindViewModel() {
+    private func bindViewModel(initialDrawing: PKDrawing?) {
         let input = DrawViewModel.Input(
-            saveButtonTapped: saveButton.rx.tap.asObservable(),
-            drawingChanged: drawingChangedSubject.asObservable()
+            saveButtonTapped: saveButton.rx.tap,
+            backButtonTapped: backButton.rx.tap,
+            drawingChanged: drawingChanged,
+            viewWillAppear: rx.viewWillAppear,
+            canvasBounds: canvasRect,
+            initialDrawing: initialDrawing
         )
         
         let output = viewModel.transform(input: input)
         
-        viewModel.initialDrawing
-            .compactMap { $0 }
-            .take(1)
-            .subscribe(onNext: { [weak self] drawing in
-                self?.rootView.canvasView.drawing = drawing
+        output.initialDrawing
+            .drive(onNext: { [weak self] drawing in
+                self?.rootView.canvasView.drawing = drawing ?? PKDrawing()
             })
             .disposed(by: disposeBag)
         
         output.dismissTrigger
-            .subscribe(onNext: { [weak self] in
+            .drive(onNext: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
         
         output.savedDrawingAndImage
-            .subscribe(onNext: { [weak self] drawing, image in
+            .drive(onNext: { [weak self] drawing, image in
                 self?.saveCompletionHandler?(drawing, image)
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
+        
+        output.showBackAlert
+            .drive(onNext: { [weak self] in
+                self?.showBackAlert()
+            })
+            .disposed(by: disposeBag)
     }
     
-    @objc private func backButtonTapped() {
-        let alertController = UIAlertController(title: "그리기 취소", message: "그리던 내용이 사라집니다\n그래도 뒤로갈래요?", preferredStyle: .alert)
-        
+    private func showBackAlert() {
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         let backAction = UIAlertAction(title: "네", style: .destructive) { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(backAction)
-        
-        present(alertController, animated: true, completion: nil)
+        showAlert(title: "그리기 취소", message: "그리던 내용이 사라집니다\n그래도 뒤로갈래요?",actions: [cancelAction, backAction])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
 extension DrawViewController: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        viewModel.currentDrawing.accept(canvasView.drawing)
+        drawingChanged.onNext(canvasView.drawing)
     }
 }
-
-//extension Reactive where Base: PKCanvasView {
-//    var drawing: Binder<PKDrawing> {
-//        return Binder(self.base) { canvasView, drawing in
-//            canvasView.drawing = drawing
-//        }
-//    }
-//    
-//    var drawingChanged: Observable<PKDrawing> {
-//        return Observable.create { [weak base] observer in
-//            guard let base = base else {
-//                observer.onCompleted()
-//                return Disposables.create()
-//            }
-//            
-//            let delegate = PKCanvasViewDelegateProxy.proxy(for: base)
-//            delegate.drawingChangedHandler = { drawing in
-//                observer.onNext(drawing)
-//            }
-//            
-//            return Disposables.create()
-//        }
-//    }
-//}
-//
-//class PKCanvasViewDelegateProxy: DelegateProxy<PKCanvasView, PKCanvasViewDelegate>, DelegateProxyType, PKCanvasViewDelegate {
-//    var drawingChangedHandler: ((PKDrawing) -> Void)?
-//    
-//    static func registerKnownImplementations() {
-//        self.register { PKCanvasViewDelegateProxy(parentObject: $0, delegateProxy: PKCanvasViewDelegateProxy.self) }
-//    }
-//    
-//    static func currentDelegate(for object: PKCanvasView) -> PKCanvasViewDelegate? {
-//        return object.delegate
-//    }
-//    
-//    static func setCurrentDelegate(_ delegate: PKCanvasViewDelegate?, to object: PKCanvasView) {
-//        object.delegate = delegate
-//    }
-//    
-//    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-//        drawingChangedHandler?(canvasView.drawing)
-//    }
-//}

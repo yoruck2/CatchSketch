@@ -7,14 +7,13 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 import PencilKit
 
 class PostQuizViewController: BaseViewController<PostQuizView> {
     private let viewModel = PostQuizViewModel()
     private let disposeBag = DisposeBag()
-
-
+    private var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bindViewModel()
@@ -22,43 +21,44 @@ class PostQuizViewController: BaseViewController<PostQuizView> {
     
     private func bindViewModel() {
         let input = PostQuizViewModel.Input(
-            drawButtonTapped: rootView.drawSketchButton.rx.tap.asObservable()
+            drawButtonTapped: rootView.drawSketchButton.rx.tap,
+            drawingUpdated: Observable.create { [weak self] observer in
+                self?.saveCompletionHandler = { drawing, image in
+                    observer.onNext((drawing, image))
+                }
+                return Disposables.create()
+            }
         )
         
         let output = viewModel.transform(input: input)
         
         output.showDrawViewController
-            .subscribe(onNext: { [weak self] drawing in
+            .drive { [weak self] drawing in
                 self?.openDrawViewController(with: drawing)
-            })
+            }
             .disposed(by: disposeBag)
         
-        viewModel.currentImage
-            .compactMap { $0 }
-            .subscribe(onNext: { [weak self] image in
+        output.currentImage
+            .drive { [weak self] image in
                 self?.updateQuizImage(image)
-            })
+            }
             .disposed(by: disposeBag)
     }
     
     private func openDrawViewController(with drawing: PKDrawing?) {
-        let drawViewModel = DrawViewModel(existingDrawing: drawing)
-        let drawViewController = DrawViewController(rootView: DrawView(), viewModel: drawViewModel)
-        drawViewController.saveCompletionHandler = { [weak self] drawing, image in
-            self?.viewModel.updateDrawingAndImage(drawing, image)
-        }
-        navigationController?.pushViewController(drawViewController, animated: true)
+        let drawVC = DrawViewController(rootView: DrawView(), initialDrawing: drawing)
+        
+        drawVC.saveCompletionHandler = self.saveCompletionHandler
+        navigationController?.pushViewController(drawVC, animated: true)
     }
     
-    private func updateQuizImage(_ image: UIImage) {
+    private func updateQuizImage(_ image: UIImage?) {
+        guard let image = image else { return }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
-            self.rootView.quizImageView.contentMode = .scaleAspectFill
-            self.rootView.quizImageView.clipsToBounds = true
-            
             let scaledImage = self.scaleImage(image, to: self.rootView.quizImageView.bounds.size)
-            
             self.rootView.quizImageView.image = scaledImage
         }
     }

@@ -14,7 +14,10 @@ class DrawView: BaseView {
         $0.drawingPolicy = .anyInput
     }
     
-    let toolPicker = PKToolPicker()
+    let toolPicker = PKToolPicker().then {
+        let penTool = PKInkingTool(.pen, color: .black, width: 10)
+        $0.selectedTool = PKInkingTool(.pen, color: .black, width: 10)
+    }
     
     override func configureHierarchy() {
         addSubview(canvasView)
@@ -22,8 +25,9 @@ class DrawView: BaseView {
     
     override func configureLayout() {
         canvasView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalToSuperview()
-            make.height.equalToSuperview().inset(50)
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(safeAreaLayoutGuide).multipliedBy(0.91)
+            
         }
     }
 }

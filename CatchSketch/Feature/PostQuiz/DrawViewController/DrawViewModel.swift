@@ -11,40 +11,62 @@ import RxCocoa
 import PencilKit
 import UIKit
 
-class DrawViewModel {
-    let initialDrawing: BehaviorRelay<PKDrawing?>
-    let currentDrawing: BehaviorRelay<PKDrawing?>
-    
+class DrawViewModel: BaseViewModel {
     struct Input {
-        let saveButtonTapped: Observable<Void>
-        let drawingChanged: Observable<PKDrawing>
+        let saveButtonTapped: ControlEvent<Void>
+        let backButtonTapped: ControlEvent<Void>
+        let drawingChanged: PublishSubject<PKDrawing>
+        let viewWillAppear: ControlEvent<Bool>
+        let canvasBounds: BehaviorSubject<CGRect>
+        let initialDrawing: PKDrawing?
     }
     
     struct Output {
-        let dismissTrigger: Observable<Void>
-        let savedDrawingAndImage: Observable<(PKDrawing, UIImage)>
+        let initialDrawing: Driver<PKDrawing?>
+        let dismissTrigger: Driver<Void>
+        let savedDrawingAndImage: Driver<(PKDrawing, UIImage)>
+        let showBackAlert: Driver<Void>
     }
     
-    init(existingDrawing: PKDrawing? = nil) {
-        self.initialDrawing = BehaviorRelay<PKDrawing?>(value: existingDrawing)
-        self.currentDrawing = BehaviorRelay<PKDrawing?>(value: existingDrawing)
-    }
+    private let disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        let dismissTrigger = input.saveButtonTapped
+        let currentDrawing = BehaviorRelay<PKDrawing?>(value: input.initialDrawing)
+        let currentCanvasBounds = BehaviorRelay<CGRect>(value: .zero)
         
         input.drawingChanged
             .bind(to: currentDrawing)
-            .disposed(by: DisposeBag())
+            .disposed(by: disposeBag)
+        
+        input.canvasBounds
+            .bind(to: currentCanvasBounds)
+            .disposed(by: disposeBag)
+        
+        let initialDrawingDriver = input.viewWillAppear
+            .take(1)
+            .map { _ in input.initialDrawing }
+            .asDriver(onErrorJustReturn: nil)
+        
+        let dismissTrigger = input.saveButtonTapped
+            .asDriver(onErrorJustReturn: ())
+        
+        let showBackAlert = input.backButtonTapped
+            .asDriver(onErrorJustReturn: ())
         
         let savedDrawingAndImage = input.saveButtonTapped
-            .withLatestFrom(currentDrawing)
-            .compactMap { drawing -> (PKDrawing, UIImage)? in
+            .withLatestFrom(Observable.combineLatest(currentDrawing, currentCanvasBounds))
+            .compactMap { drawing, bounds -> (PKDrawing, UIImage)? in
                 guard let drawing = drawing else { return nil }
-                let image = drawing.image(from: drawing.bounds, scale: UIScreen.main.scale)
+                let image = drawing.image(from: bounds, scale: UIScreen.main.scale)
                 return (drawing, image)
             }
+            .asDriver(onErrorDriveWith: .empty())
         
-        return Output(dismissTrigger: dismissTrigger, savedDrawingAndImage: savedDrawingAndImage)
+        return Output(
+            initialDrawing: initialDrawingDriver,
+            dismissTrigger: dismissTrigger,
+            savedDrawingAndImage: savedDrawingAndImage,
+            showBackAlert: showBackAlert
+        )
     }
 }
