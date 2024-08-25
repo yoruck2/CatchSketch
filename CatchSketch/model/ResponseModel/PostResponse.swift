@@ -48,3 +48,6 @@ struct Creator: Decodable {
     let profileImage: String?
 }
 
+struct ImageUploadResponse: Decodable {
+    let files: [String]
+}

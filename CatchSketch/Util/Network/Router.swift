@@ -21,10 +21,10 @@ enum Router {
     }
     
     enum PostEndpoint {
-        case uploadImage(files: PostRequest.ImageUpload)
-        case create(post: PostRequest)
-        case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
-    }
+           case uploadImage(files: Data)
+           case create(post: PostRequest)
+           case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
+       }
     enum ProfileEndpoint {
         case fetch
         case edit(data: Profile.Edit)
@@ -77,7 +77,7 @@ extension Router: TargetType {
         case .post(let endpoint):
             switch endpoint {
             case .uploadImage: 
-                return "/posts/images"
+                return "/posts/files"
             case .postView, .create:
                 return "/posts"
             }
@@ -168,7 +168,8 @@ extension Router: TargetType {
         case .post(let endpoint):
             switch endpoint {
             case .uploadImage(let files):
-                return try? JSONEncoder.encode(with: files)
+                let imageUpload = files
+                return try? JSONEncoder.encode(with: imageUpload)
             case .create(let post):
                 return try? JSONEncoder.encode(with: post)
             case .postView:
@@ -176,4 +177,16 @@ extension Router: TargetType {
             }
         }
     }
+}
+extension Router {
+    func multipartFormData() -> ((MultipartFormData) -> Void)? {
+            switch self {
+            case .post(.uploadImage(let files)):
+                return { multipartFormData in
+                    multipartFormData.append(files, withName: "files")
+                }
+            default:
+                return nil
+            }
+        }
 }
