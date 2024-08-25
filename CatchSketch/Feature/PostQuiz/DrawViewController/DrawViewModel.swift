@@ -31,17 +31,7 @@ class DrawViewModel: BaseViewModel {
     private let disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        let currentDrawing = BehaviorRelay<PKDrawing?>(value: input.initialDrawing)
-        let currentCanvasBounds = BehaviorRelay<CGRect>(value: .zero)
-        
-        input.drawingChanged
-            .bind(to: currentDrawing)
-            .disposed(by: disposeBag)
-        
-        input.canvasBounds
-            .bind(to: currentCanvasBounds)
-            .disposed(by: disposeBag)
-        
+
         let initialDrawingDriver = input.viewWillAppear
             .take(1)
             .map { _ in input.initialDrawing }
@@ -54,9 +44,9 @@ class DrawViewModel: BaseViewModel {
             .asDriver(onErrorJustReturn: ())
         
         let savedDrawingAndImage = input.saveButtonTapped
-            .withLatestFrom(Observable.combineLatest(currentDrawing, currentCanvasBounds))
+            .withLatestFrom(Observable.combineLatest(input.drawingChanged, 
+                                                     input.canvasBounds))
             .compactMap { drawing, bounds -> (PKDrawing, UIImage)? in
-                guard let drawing = drawing else { return nil }
                 let image = drawing.image(from: bounds, scale: UIScreen.main.scale)
                 return (drawing, image)
             }

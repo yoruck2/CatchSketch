@@ -18,7 +18,7 @@ final class PostQuizView: BaseView {
         $0.contentMode = .scaleToFill
     }
     
-    let quizAnswerTextField = UITextField().then {
+    let correctAnswerTextField = UITextField().then {
         $0.borderStyle = .roundedRect
         $0.placeholder = "정답을 입력하세요"
     }
@@ -41,8 +41,7 @@ final class PostQuizView: BaseView {
         $0.clipsToBounds = true
     }
     
-    let sketchPostButton = UIButton().then {
-        $0.setTitle("그림 올리기", for: .normal)
+    let sketchPostButton = ConfirmButton(title: "그림 올리기").then {
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .systemBlue
         $0.layer.cornerRadius = 10
@@ -55,7 +54,7 @@ final class PostQuizView: BaseView {
     }
     
     override func configureHierarchy() {
-        [quizImageView, quizAnswerTextField, randomAnswerButton, drawSketchButton, sketchPostButton].forEach(addSubview)
+        [quizImageView, correctAnswerTextField, randomAnswerButton, drawSketchButton, sketchPostButton].forEach(addSubview)
     }
     
     override func configureLayout() {
@@ -65,18 +64,18 @@ final class PostQuizView: BaseView {
             make.height.equalTo(quizImageView.snp.width).multipliedBy(1.3)
         }
         
-        quizAnswerTextField.snp.makeConstraints { make in
+        correctAnswerTextField.snp.makeConstraints { make in
             make.top.equalTo(quizImageView.snp.bottom).offset(20)
             make.left.equalToSuperview().inset(20)
             make.height.equalTo(40)
         }
         
         randomAnswerButton.snp.makeConstraints { make in
-            make.top.equalTo(quizAnswerTextField)
-            make.left.equalTo(quizAnswerTextField.snp.right).offset(10)
+            make.top.equalTo(correctAnswerTextField)
+            make.left.equalTo(correctAnswerTextField.snp.right).offset(10)
             make.right.equalToSuperview().inset(20)
             make.width.equalTo(60)
-            make.height.equalTo(quizAnswerTextField)
+            make.height.equalTo(correctAnswerTextField)
         }
         
         drawSketchButton.snp.makeConstraints { make in
@@ -85,7 +84,7 @@ final class PostQuizView: BaseView {
         }
         
         sketchPostButton.snp.makeConstraints { make in
-            make.top.equalTo(quizAnswerTextField.snp.bottom).offset(20)
+            make.top.equalTo(correctAnswerTextField.snp.bottom).offset(50)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(50)
         }

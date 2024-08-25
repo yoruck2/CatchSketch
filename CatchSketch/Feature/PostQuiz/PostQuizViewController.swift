@@ -20,44 +20,70 @@ class PostQuizViewController: BaseViewController<PostQuizView> {
     }
     
     private func bindViewModel() {
+        let sketchData = Observable.create { [weak self] observer in
+            self?.saveCompletionHandler = { drawing, image in
+                observer.onNext((drawing, image))
+            }
+            return Disposables.create()
+        }
+        
         let input = PostQuizViewModel.Input(
             drawButtonTapped: rootView.drawSketchButton.rx.tap,
-            drawingUpdated: Observable.create { [weak self] observer in
-                self?.saveCompletionHandler = { drawing, image in
-                    observer.onNext((drawing, image))
-                }
-                return Disposables.create()
-            }
+            postButtonTapped: rootView.sketchPostButton.rx.tap,
+            drawingUpdated: sketchData,
+            correctAnswerText: rootView.correctAnswerTextField.rx.text.orEmpty,
+            quizImage: rootView.quizImageView.rx.observe(UIImage.self, "image")
         )
         
         let output = viewModel.transform(input: input)
         
+        output.isPostValid
+            .drive(rootView.sketchPostButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.correctAnswerText
+            .bind(to: rootView.correctAnswerTextField.rx.text)
+            .disposed(by: disposeBag)
+        
         output.showDrawViewController
-            .drive { [weak self] drawing in
-                self?.openDrawViewController(with: drawing)
-            }
+            .drive(onNext: { [weak self] drawing in
+                guard let self = self else { return }
+                let drawVC = DrawViewController(rootView: DrawView(), initialDrawing: drawing)
+                drawVC.saveCompletionHandler = self.saveCompletionHandler
+                self.navigationController?.pushViewController(drawVC, animated: true)
+            })
             .disposed(by: disposeBag)
         
         output.currentImage
-            .drive { [weak self] image in
+            .drive(onNext: { [weak self] image in
                 self?.updateQuizImage(image)
-            }
+            })
             .disposed(by: disposeBag)
-    }
-    
-    private func openDrawViewController(with drawing: PKDrawing?) {
-        let drawVC = DrawViewController(rootView: DrawView(), initialDrawing: drawing)
         
-        drawVC.saveCompletionHandler = self.saveCompletionHandler
-        navigationController?.pushViewController(drawVC, animated: true)
+        output.showAlert
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] message in
+                self?.showAlert(message: message)
+            })
+            .disposed(by: disposeBag)
+        
+        output.postResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.showAlert(message: "포스트가 성공적으로 생성되었습니다.")
+                case .failure(let error):
+                    self?.showAlert(message: "포스트 생성 실패: \(error.localizedDescription)")
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func updateQuizImage(_ image: UIImage?) {
         guard let image = image else { return }
-        
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
+            guard let self else { return }
             let scaledImage = self.scaleImage(image, to: self.rootView.quizImageView.bounds.size)
             self.rootView.quizImageView.image = scaledImage
         }
@@ -68,5 +94,11 @@ class PostQuizViewController: BaseViewController<PostQuizView> {
         return renderer.image { _ in
             image.draw(in: CGRect(origin: .zero, size: size))
         }
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true)
     }
 }
