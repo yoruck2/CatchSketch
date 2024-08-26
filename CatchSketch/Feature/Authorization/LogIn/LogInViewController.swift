@@ -25,7 +25,9 @@ final class LogInViewController: BaseViewController<LogInView> {
                 case .success(let value):
                     UserDefaultsManager.shared.accessToken = value.accessToken
                     UserDefaultsManager.shared.refreshToken = value.refreshToken
-                    owner.changeRootViewController(CatchSketchTabBarController())
+//                    owner.changeRootViewController(CatchSketchTabBarController())
+//                    owner.present(CatchSketchTabBarController(), animated: true)
+                    owner.navigationController?.pushViewController(CatchSketchTabBarController(), animated: true)
                 case .failure(let error):
                     owner.showAlert(title: "로그인 실패", message: "계정을 확인해주세요. 🥲")
                     print(error)

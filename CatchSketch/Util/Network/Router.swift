@@ -93,6 +93,7 @@ extension Router: TargetType {
             case .SignUp, .login, .emailValidation:
                 headers[Header.contentType.rawValue] = Header.json.rawValue
             case .tokenRefresh:
+                headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
                 headers[Header.refresh.rawValue] = UserDefaultsManager.shared.refreshToken
             }
@@ -105,6 +106,7 @@ extension Router: TargetType {
                 headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             case .postView:
+                headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             }
         case .profile(let endpoint):
@@ -178,15 +180,15 @@ extension Router: TargetType {
         }
     }
 }
-extension Router {
-    func multipartFormData() -> ((MultipartFormData) -> Void)? {
-            switch self {
-            case .post(.uploadImage(let files)):
-                return { multipartFormData in
-                    multipartFormData.append(files, withName: "files")
-                }
-            default:
-                return nil
-            }
-        }
-}
+//extension Router {
+//    func multipartFormData(files: Data) -> ((MultipartFormData) -> Void)? {
+//        switch self {
+//        case .post(.uploadImage(_)):
+//            return { multipartFormData in
+//                multipartFormData.append(files, withName: "files")
+//            }
+//        default:
+//            return nil
+//        }
+//    }
+//}

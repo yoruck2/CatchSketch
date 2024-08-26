@@ -5,11 +5,11 @@
 //  Created by dopamint on 8/23/24.
 //
 
-import Foundation
+//import Foundation
+//import UIKit
 import RxSwift
 import RxCocoa
 import PencilKit
-import UIKit
 
 class PostQuizViewModel {
     struct Input {
@@ -26,7 +26,7 @@ class PostQuizViewModel {
         let showDrawViewController: Driver<PKDrawing?>
         let correctAnswerText: Observable<String>
         let isPostValid: Driver<Bool>
-        let postResult: Observable<Result<PostResponse, Error>>
+        let postResult: Observable<Result<Post, Error>>
         let showAlert: Observable<String>
     }
     
@@ -53,9 +53,9 @@ class PostQuizViewModel {
             .withLatestFrom(drawingRelay)
             .asDriver(onErrorDriveWith: .empty())
         
-        let postResult = input.postButtonTapped
+        let postResult: Observable<Result<Post, Error>> = input.postButtonTapped
             .withLatestFrom(Observable.combineLatest(input.quizImage, input.correctAnswerText))
-            .flatMapLatest { [weak self] (image, answer) -> Observable<Result<PostResponse, Error>> in
+            .flatMapLatest { [weak self] (image, answer) -> Observable<Result<Post, Error>> in
                 guard let self = self else { return .empty() }
                 guard !answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                     self.showAlertRelay.accept("정답을 입력해 주세요")
@@ -71,11 +71,11 @@ class PostQuizViewModel {
             .share()
         
         postResult
-            .subscribe(onNext: { [weak self] in
-                switch $0 {
-                case .success(let response):
-                    if let postId = response.data.first?.post_id {
-                        self?.showAlertRelay.accept("포스트가 성공적으로 생성되었습니다. ID: \(postId)")
+            .subscribe(onNext: { [weak self] (result: Result<Post, Error>) in
+                switch result {
+                case .success(let post):
+                    if let postId = post.post_id {
+                        self?.showAlertRelay.accept("포스트 등록 완료!")
                     }
                 case .failure(let error):
                     self?.showAlertRelay.accept("포스트 생성에 실패했습니다: \(error.localizedDescription)")
@@ -94,19 +94,19 @@ class PostQuizViewModel {
         )
     }
     
-    private func uploadImageAndCreatePost(imageData: Data, answer: String) -> Observable<Result<PostResponse, Error>> {
-        let imageUpload = ImageUpload(files: [imageData])
+    private func uploadImageAndCreatePost(imageData: Data, answer: String) -> Observable<Result<Post, Error>> {
         // 이미지 업로드
         return NetworkService.shared.request(api: .post(.uploadImage(files: imageData)))
             .asObservable()
-            .flatMap { (result: Result<ImageUploadResponse, Error>) -> Observable<Result<PostResponse, Error>> in
+            .flatMap { (result: Result<ImageUploadResponse, Error>) -> Observable<Result<Post, Error>> in
                 switch result {
                 case .success(let response):
                     guard let imagePath = response.files.first else {
                         return .just(.failure(NSError(domain: "ImageUploadError", code: 0, userInfo: [NSLocalizedDescriptionKey: "업로드된 이미지 경로가 없습니다"])))
                     }
                     let postRequest = PostRequest(product_id: "CatchSketch_global", content: answer, files: [imagePath])
-                    return NetworkService.shared.post(query: .post(.create(post: postRequest))).asObservable()
+                    return NetworkService.shared.post(query: .post(.create(post: postRequest)))
+                        .asObservable()
                 case .failure(let error):
                     return .just(.failure(error))
                 }

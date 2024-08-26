@@ -30,7 +30,7 @@ final class MainFeedViewModel {
         // Test
         let result = input.viewDidLoadTrigger
             .flatMap { _ in
-                NetworkService.shared.post(query: .post(.postView()))
+                NetworkService.shared.viewPost(query: .post(.postView()))
             }
         return Output(refreshResult: result)
     }

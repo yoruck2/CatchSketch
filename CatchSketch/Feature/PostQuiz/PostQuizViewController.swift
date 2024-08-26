@@ -72,9 +72,9 @@ class PostQuizViewController: BaseViewController<PostQuizView> {
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.showAlert(message: "포스트가 성공적으로 생성되었습니다.")
+                    self?.showAlert(message: "스케치 퀴즈 등록 완료! 😆")
                 case .failure(let error):
-                    self?.showAlert(message: "포스트 생성 실패: \(error.localizedDescription)")
+                    self?.showAlert(message: "포스트 등록 실패: \(error.localizedDescription)")
                 }
             })
             .disposed(by: disposeBag)

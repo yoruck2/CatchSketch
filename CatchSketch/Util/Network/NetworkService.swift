@@ -16,89 +16,121 @@ class NetworkService {
     var refreshTokenExpired: (() -> Void)?
     
     func request<T: Decodable>(api: Router) -> Single<Result<T, Error>> {
-            return Single.create { observer in
-                let request: DataRequest
-                
-                if let multipartFormData = api.multipartFormData() {
-                    print("♻️ Preparing multipart form data")
-                    request = AF.upload(multipartFormData: multipartFormData, with: api)
-                } else {
-                    request = AF.request(api)
-                }
-                
-                request.validate(statusCode: 200..<300)
-                    .responseDecodable(of: T.self) { response in
-                        self.handleResponse(response, observer: observer)
-                    }
-                
-                return Disposables.create {
-                    request.cancel()
-                }
-            }
-        }
-        
-        private func handleResponse<T: Decodable>(_ response: DataResponse<T, AFError>, observer: (SingleEvent<Result<T, Error>>) -> Void) {
-            print("Request: \(String(describing: response.request))")
-            print("Response: \(String(describing: response.response))")
-            print("Result: \(String(describing: response.result))")
+        return Single.create { observer in
+            let request: DataRequest
             
-            switch response.result {
-            case .success(let value):
-                print("✅ Request succeeded")
-                observer(.success(.success(value)))
-            case .failure(let error):
-                print("❌ Request failed: \(error)")
-                if let data = response.data, let str = String(data: data, encoding: .utf8) {
-                    print("Error Response Data: \(str)")
-                }
-                if let errorCode = error.responseCode {
-                    let apiError = self.handleError(errorCode: errorCode)
-                    observer(.success(.failure(apiError)))
-                } else {
-                    observer(.success(.failure(error)))
-                }
-            }
-        }
-        
-        private func handleError(errorCode: Int) -> APIError {
-            let error = APIError.toAPIError(errorCode)
-            print(error.description)
-            
-            switch error {
-            case .expiredAccessToken:
-                refreshToken()
-                    .subscribe(onSuccess: { result in
-                        if case .success(let value) = result {
-                            UserDefaultsManager.shared.accessToken = value.accessToken
-                        }
-                    })
-                    .disposed(by: DisposeBag())
-            case .expiredRefreshToken:
-                DispatchQueue.main.async {
-                    self.refreshTokenExpired?()
-                }
+            switch api {
+            case .post(.uploadImage(let files)):
+                let url = APIAuth.catchSketchAPI.baseURL + "/v1/posts/files"
+                let headers: HTTPHeaders = [
+                    Header.sesacKey.rawValue: APIAuth.catchSketchAPI.key,
+                    Header.contentType.rawValue: Header.multiPart.rawValue,
+                    Header.authorization.rawValue: UserDefaultsManager.shared.accessToken
+                ]
+                
+                request = AF.upload(multipartFormData: { multipartFormData in
+                    multipartFormData.append(files, withName: "files", fileName: "image.jpg", mimeType: "image/jpeg")
+                }, to: url, method: .post, headers: headers)
+                
             default:
-                break
+                request = AF.request(api)
             }
-            return error
-        }
-        
-        private func refreshToken() -> Single<Result<AccesToken, Error>> {
-            return request(api: .auth(.tokenRefresh))
+            
+//            let request: DataRequest
+//            
+//            if let multipartFormData = api.multipartFormData() {
+//                request = AF.upload(multipartFormData: multipartFormData, with: api)
+//            } else {
+//                request = AF.request(api)
+//            }
+            
+            request.validate(statusCode: 200..<300)
+                .responseDecodable(of: T.self) { response in
+                    self.handleResponse(response, observer: observer)
+                }
+            
+            return Disposables.create {
+                request.cancel()
+            }
         }
     }
+    
+    private func handleResponse<T: Decodable>(_ response: DataResponse<T, AFError>, observer: (SingleEvent<Result<T, Error>>) -> Void) {
+        print("Request: \(String(describing: response.request))")
+        print("Response: \(String(describing: response.response))")
+        print("Result: \(String(describing: response.result))")
+        
+        switch response.result {
+        case .success(let value):
+            print("✅✅✅✅✅  succeeded")
+            observer(.success(.success(value)))
+        case .failure(let error):
+            print("❌❌❌❌❌ failed: \(error)")
 
-    extension NetworkService {
-        func logIn(query: Router) -> Single<Result<LogInResponse, Error>> {
-            return request(api: query)
-        }
-        
-        func signUp(query: Router) -> Single<Result<Profile, Error>> {
-            return request(api: query)
-        }
-        
-        func post(query: Router) -> Single<Result<PostResponse, Error>> {
-            return request(api: query)
+            //응답이 있는 에러냐? 없는 에러냐?
+            if let errorCode = error.responseCode {
+                let apiError = self.handleError(errorCode: errorCode)
+                observer(.success(.failure(apiError)))
+            } else {
+                observer(.success(.failure(error)))
+            }
         }
     }
+    
+    private func handleError(errorCode: Int) -> APIError {
+        let error = APIError.toAPIError(errorCode)
+        print("\(error.description)")
+        
+        switch error {
+        case .expiredAccessToken:
+            refreshToken()
+                .subscribe(onSuccess: { result in
+                    if case .success(let value) = result {
+                        UserDefaultsManager.shared.accessToken = value.accessToken
+                    }
+                })
+                .disposed(by: DisposeBag())
+        case .expiredRefreshToken:
+            DispatchQueue.main.async {
+                self.refreshTokenExpired?()
+            }
+        default:
+            break
+        }
+        return error
+    }
+    
+    private func refreshToken() -> Single<Result<AccesToken, Error>> {
+        return request(api: .auth(.tokenRefresh))
+    }
+}
+
+extension NetworkService {
+    func logIn(query: Router) -> Single<Result<LogInResponse, Error>> {
+        return request(api: query)
+    }
+    
+    func signUp(query: Router) -> Single<Result<Profile, Error>> {
+        return request(api: query)
+    }
+    
+    func viewPost(query: Router) -> Single<Result<PostResponse, Error>> {
+        return request(api: query)
+    }   
+    func post(query: Router) -> Single<Result<Post, Error>> {
+        return request(api: query)
+            .map { (result: Result<Post, Error>) -> Result<Post, Error> in
+                switch result {
+                case .success(let postResponse):
+                        return .success(postResponse)
+ 
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }
+    }
+    func postImage(query: Router) -> Single<Result<ImageUploadResponse, Error>> {
+        return request(api: query)
+    }
+}
 
