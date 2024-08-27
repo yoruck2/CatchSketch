@@ -34,6 +34,14 @@ final class SignUpViewController: BaseViewController<SignUpView> {
                                     message: "회원가입이 성공적으로 완료되었습니다!😆",
                                     actions: [action])
                 case .failure(let error):
+                    switch error.asAFError?.responseCode {
+                    case 409:
+                        owner.showAlert(title: "중복 닉네임",
+                                        message: "다른분이 사용중인 이메일 또는 닉네임 입니다.\n다른 닉네임을 입력해주세요!")
+                    default: 
+                        print(error.asAFError?.responseCode)
+                        return
+                    }
                     print("🔥 회원가입 실패: \(error.localizedDescription)")
                 }
             }
