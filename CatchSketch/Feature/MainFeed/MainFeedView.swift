@@ -51,7 +51,6 @@ class CenteredCollectionViewFlowLayout: UICollectionViewFlowLayout {
                 offsetAdjustment = itemVerticalCenter - verticalCenter
             }
         }
-        
         return CGPoint(x: proposedContentOffset.x, y: proposedContentOffset.y + offsetAdjustment)
     }
 }

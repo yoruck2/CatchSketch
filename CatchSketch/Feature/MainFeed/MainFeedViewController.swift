@@ -23,36 +23,35 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     }
     
     private func bindViewModel() {
-        let input = MainFeedViewModel.Input(viewDidLoadTrigger: rx.viewWillAppear.asObservable())
+        let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in })
         let output = viewModel.transform(input: input)
         
-        viewModel.items
-            .bind(to: rootView.mainFeedCollectionView.rx.items(cellIdentifier: "MainFeedCell", cellType: MainFeedCollectionViewCell.self)) { (row, element, cell) in
-                cell.configure(with: element)
+        output.posts
+            .bind(to: rootView.mainFeedCollectionView.rx.items(cellIdentifier: "MainFeedCell", cellType: MainFeedCollectionViewCell.self)) { (row, post, cell) in
+                cell.configure(with: post)
             }
             .disposed(by: disposeBag)
         
-        rootView.mainFeedCollectionView.rx.modelSelected(String.self)
-            .subscribe(onNext: { [weak self] item in
-                //                NetworkService.shared.logIn(query: .post(.postView()))
-                //                    .subscribe()
-                //                    .disposed(by: self?.disposeBag ?? DisposeBag())
-                self?.showAlert(title: "눌림", message: "확인")
+        output.refreshResult
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success(let response):
+                    print("✨ 피드 갱신 성공")
+                    dump(response)
+                case .failure(let error):
+                    print("❌ 피드 갱신 실패: \(error.localizedDescription)")
+                    self?.showAlert(title: "오류", message: "피드를 불러오는 데 실패했습니다.")
+                }
             })
             .disposed(by: disposeBag)
         
-        output.refreshResult
-            .bind(with: self) { owner, value in
-                switch value {
-                case .success(let value):
-                    print("✨ 토큰갱신 성공")
-                    dump(value)
-                case .failure(let error):
-                    
-                    print("토큰갱신 실패")
-                    print(error.localizedDescription)
-                }
-            }.disposed(by: disposeBag)
+        output.nextCursor
+            .subscribe(onNext: { cursor in
+                print("Next cursor: \(cursor ?? "None")")
+                // 여기서 필요하다면 다음 페이지 로드 로직을 구현할 수 있습니다.
+            })
+            .disposed(by: disposeBag)
     }
 }
 //http://lslp.sesac.co.kr:31819/v1/posts/posts?limit=nil&next=nil

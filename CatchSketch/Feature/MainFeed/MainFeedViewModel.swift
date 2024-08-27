@@ -11,27 +11,57 @@ import RxCocoa
 
 final class MainFeedViewModel {
     let disposeBag = DisposeBag()
-    let items = BehaviorRelay<[String]>(value: [])
-    
-    init() {
-        let dummyData = (1...20).map { "Item \($0)" }
-        items.accept(dummyData)
-    }
     
     struct Input {
-        let viewDidLoadTrigger: Observable<Bool>
+        let viewWillAppearTrigger: Observable<Void>
     }
     
     struct Output {
         let refreshResult: Observable<Result<PostResponse, Error>>
+        let posts: Observable<[Post]>
+        let nextCursor: Observable<String?>
     }
     
     func transform(input: Input) -> Output {
-        // Test
-        let result = input.viewDidLoadTrigger
-            .flatMap { _ in
-                NetworkService.shared.viewPost(query: .post(.postView()))
+        let postsSubject = PublishSubject<[Post]>()
+        let nextCursorSubject = PublishSubject<String?>()
+        
+        let refreshResult = input.viewWillAppearTrigger
+            .flatMapLatest { _  in
+                NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global", limit: "5")))
+                    .asObservable()
             }
-        return Output(refreshResult: result)
+            .share()
+        
+        refreshResult
+            .compactMap { result -> [Post]? in
+                switch result {
+                case .success(let response):
+                    return response.data
+                case .failure:
+                    return nil
+                }
+            }
+            .bind(to: postsSubject)
+            .disposed(by: disposeBag)
+        
+        refreshResult
+            .compactMap { result -> String? in
+                switch result {
+                case .success(let response):
+                    return response.next_cursor
+                case .failure:
+                    return nil
+                }
+            }
+            .bind(to: nextCursorSubject)
+            .disposed(by: disposeBag)
+        
+        return Output(
+            refreshResult: refreshResult,
+            posts: postsSubject.asObservable(),
+            nextCursor: nextCursorSubject.asObservable()
+        )
     }
 }
+

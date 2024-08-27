@@ -69,6 +69,8 @@
 		84DFFB7F2C79E1690014EAD3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */; };
 		84DFFB812C7A6DB40014EAD3 /* ImageUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */; };
 		84F631C52C760792005D4C06 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F631C42C760792005D4C06 /* PostResponse.swift */; };
+		84FD0F732C7DC4E100EFA4E1 /* PostInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */; };
+		84FD0F762C7DED8100EFA4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 84FD0F752C7DED8100EFA4E1 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +132,7 @@
 		84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadResponse.swift; sourceTree = "<group>"; };
 		84F631C42C760792005D4C06 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
+		84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfoLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,7 @@
 				84321E892C6E11A300BA7FD7 /* SnapKit in Frameworks */,
 				84321E832C6E118600BA7FD7 /* Alamofire in Frameworks */,
 				84321E8F2C6E11EC00BA7FD7 /* RxCocoa in Frameworks */,
+				84FD0F762C7DED8100EFA4E1 /* Kingfisher in Frameworks */,
 				84321E862C6E119A00BA7FD7 /* IQKeyboardManagerSwift in Frameworks */,
 				84321E942C6E122D00BA7FD7 /* Toast in Frameworks */,
 				84321E8C2C6E11AD00BA7FD7 /* Then in Frameworks */,
@@ -372,6 +376,7 @@
 				84B1C4C52C7364F10017585A /* Controller */,
 				84D940C62C71D93A0054773B /* SignTextField.swift */,
 				84D940C82C71D96F0054773B /* ConfirmButton.swift */,
+				84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				84321E8E2C6E11EC00BA7FD7 /* RxCocoa */,
 				84321E902C6E11EC00BA7FD7 /* RxSwift */,
 				84321E932C6E122D00BA7FD7 /* Toast */,
+				84FD0F752C7DED8100EFA4E1 /* Kingfisher */,
 			);
 			productName = CatchSketch;
 			productReference = 84321E5E2C6DEEE000BA7FD7 /* CatchSketch.app */;
@@ -474,6 +480,7 @@
 				84321E8A2C6E11AD00BA7FD7 /* XCRemoteSwiftPackageReference "Then" */,
 				84321E8D2C6E11EC00BA7FD7 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				84321E922C6E122D00BA7FD7 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				84FD0F742C7DED8100EFA4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 84321E5F2C6DEEE000BA7FD7 /* Products */;
 			projectDirPath = "";
@@ -543,6 +550,7 @@
 				84B1C4FB2C7502B70017585A /* Reactive+.swift in Sources */,
 				84321E962C6E168D00BA7FD7 /* Router.swift in Sources */,
 				84DFFB772C776A810014EAD3 /* DrawViewController.swift in Sources */,
+				84FD0F732C7DC4E100EFA4E1 /* PostInfoLabel.swift in Sources */,
 				84D940B52C71D1F10054773B /* BaseView.swift in Sources */,
 				84DFFB7B2C786C9C0014EAD3 /* DrawViewModel.swift in Sources */,
 				84B1C4C42C7360550017585A /* MainFeedCollectionViewCell.swift in Sources */,
@@ -830,6 +838,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		84FD0F742C7DED8100EFA4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -867,6 +883,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84321E922C6E122D00BA7FD7 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		84FD0F752C7DED8100EFA4E1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84FD0F742C7DED8100EFA4E1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
