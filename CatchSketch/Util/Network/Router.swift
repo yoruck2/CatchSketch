@@ -142,7 +142,7 @@ extension Router: TargetType {
             case .create:
                 return nil
             case .postView(let productID, let cursor, let limit):
-                return ["productID": productID ?? "", "next": cursor ?? "", "limit": limit ?? ""]
+                return ["product_id": productID ?? "", "next": cursor ?? "", "limit": limit ?? ""]
             }
         }
     }
