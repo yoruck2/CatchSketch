@@ -9,8 +9,8 @@ import UIKit
 import RxSwift
 import PencilKit
 
-class PostQuizViewController: BaseViewController<PostQuizView> {
-    private let viewModel = PostQuizViewModel()
+class PostSketchViewController: BaseViewController<PostSketchView> {
+    private let viewModel = PostSketchViewModel()
     private let disposeBag = DisposeBag()
     private var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
     
@@ -27,7 +27,7 @@ class PostQuizViewController: BaseViewController<PostQuizView> {
             return Disposables.create()
         }
         
-        let input = PostQuizViewModel.Input(
+        let input = PostSketchViewModel.Input(
             drawButtonTapped: rootView.drawSketchButton.rx.tap,
             postButtonTapped: rootView.sketchPostButton.rx.tap,
             drawingUpdated: sketchData,

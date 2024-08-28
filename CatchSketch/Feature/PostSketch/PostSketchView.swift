@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PostQuizView: BaseView {
+final class PostSketchView: BaseView {
     
     let quizImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill

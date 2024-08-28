@@ -5,11 +5,10 @@
 //  Created by dopamint on 8/23/24.
 //
 
-import Foundation
 import RxSwift
 import RxCocoa
 import PencilKit
-import UIKit
+
 
 class DrawViewModel: BaseViewModel {
     struct Input {
@@ -31,7 +30,7 @@ class DrawViewModel: BaseViewModel {
     private let disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-
+        
         let initialDrawingDriver = input.viewWillAppear
             .take(1)
             .map { _ in input.initialDrawing }

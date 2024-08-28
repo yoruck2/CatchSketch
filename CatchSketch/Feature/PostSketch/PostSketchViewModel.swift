@@ -5,13 +5,11 @@
 //  Created by dopamint on 8/23/24.
 //
 
-//import Foundation
-//import UIKit
 import RxSwift
 import RxCocoa
 import PencilKit
 
-class PostQuizViewModel {
+class PostSketchViewModel {
     struct Input {
         let drawButtonTapped: ControlEvent<Void>
         let postButtonTapped: ControlEvent<Void>
