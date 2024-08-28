@@ -13,7 +13,7 @@ final class CatchSketchTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let mainFeedVC = CatchSketchNavigationController(MainFeedViewController(rootView: MainFeedView()))
-        let postQuizVC = CatchSketchNavigationController(PostQuizViewController(rootView: PostQuizView()))
+        let postQuizVC = CatchSketchNavigationController(PostSketchViewController(rootView: PostSketchView()))
         let profileVC = CatchSketchNavigationController(ProfileViewController(rootView: ProfileView()))
         
         setViewControllers([mainFeedVC, postQuizVC, profileVC], animated: true)
@@ -38,7 +38,7 @@ final class CatchSketchTabBarController: UITabBarController {
         
         tabBar.tintColor = CatchSketch.Color.mainGreen
     }
-    
+    // TODO: 수정예정
     private func adjustBackgroundImage(_ image: UIImage, for tabBar: UITabBar) -> UIImage {
         let tabBarHeight = tabBar.frame.size.height
         let imageHeight = image.size.height

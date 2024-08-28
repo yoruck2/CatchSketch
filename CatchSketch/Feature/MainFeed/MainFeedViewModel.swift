@@ -23,12 +23,12 @@ final class MainFeedViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let postsSubject = PublishSubject<[Post]>()
-        let nextCursorSubject = PublishSubject<String?>()
+        let postList = PublishSubject<[Post]>()
+        let nextCursor = PublishSubject<String?>()
         
         let refreshResult = input.viewWillAppearTrigger
             .flatMapLatest { _  in
-                NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global", limit: "5")))
+                NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global", limit: "10")))
                     .asObservable()
             }
             .share()
@@ -42,7 +42,7 @@ final class MainFeedViewModel {
                     return nil
                 }
             }
-            .bind(to: postsSubject)
+            .bind(to: postList)
             .disposed(by: disposeBag)
         
         refreshResult
@@ -54,13 +54,13 @@ final class MainFeedViewModel {
                     return nil
                 }
             }
-            .bind(to: nextCursorSubject)
+            .bind(to: nextCursor)
             .disposed(by: disposeBag)
         
         return Output(
             refreshResult: refreshResult,
-            posts: postsSubject.asObservable(),
-            nextCursor: nextCursorSubject.asObservable()
+            posts: postList.asObservable(),
+            nextCursor: nextCursor.asObservable()
         )
     }
 }

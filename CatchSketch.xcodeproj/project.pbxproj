@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841D75DA2C7F120200159EA1 /* SketchQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75D92C7F120200159EA1 /* SketchQuizViewController.swift */; };
+		841D75DC2C7F121200159EA1 /* SketchQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75DB2C7F121200159EA1 /* SketchQuizViewModel.swift */; };
+		841D75DE2C7F121B00159EA1 /* SketchQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75DD2C7F121B00159EA1 /* SketchQuizView.swift */; };
+		841D75E02C7F3F6100159EA1 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75DF2C7F3F6100159EA1 /* CommentCollectionViewCell.swift */; };
 		84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */; };
 		84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */; };
 		84321E662C6DEEE000BA7FD7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E652C6DEEE000BA7FD7 /* SignUpView.swift */; };
@@ -34,8 +38,8 @@
 		84B1C4C42C7360550017585A /* MainFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */; };
 		84B1C4C72C73650C0017585A /* CatchSketchTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C62C73650C0017585A /* CatchSketchTabBarController.swift */; };
 		84B1C4C92C7368910017585A /* CatchSketchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C82C7368910017585A /* CatchSketchNavigationController.swift */; };
-		84B1C4CC2C7368EA0017585A /* PostQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4CB2C7368EA0017585A /* PostQuizViewController.swift */; };
-		84B1C4CE2C7369030017585A /* PostQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4CD2C7369030017585A /* PostQuizView.swift */; };
+		84B1C4CC2C7368EA0017585A /* PostSketchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4CB2C7368EA0017585A /* PostSketchViewController.swift */; };
+		84B1C4CE2C7369030017585A /* PostSketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4CD2C7369030017585A /* PostSketchView.swift */; };
 		84B1C4D12C73698C0017585A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4D02C73698C0017585A /* ProfileViewController.swift */; };
 		84B1C4D32C7369BA0017585A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4D22C7369BA0017585A /* ProfileView.swift */; };
 		84B1C4F92C74B4810017585A /* AccesToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4F82C74B4810017585A /* AccesToken.swift */; };
@@ -65,7 +69,7 @@
 		84DFFB772C776A810014EAD3 /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB762C776A810014EAD3 /* DrawViewController.swift */; };
 		84DFFB792C776AA00014EAD3 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB782C776AA00014EAD3 /* DrawView.swift */; };
 		84DFFB7B2C786C9C0014EAD3 /* DrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */; };
-		84DFFB7D2C78C5D10014EAD3 /* PostQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */; };
+		84DFFB7D2C78C5D10014EAD3 /* PostSketchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7C2C78C5D10014EAD3 /* PostSketchViewModel.swift */; };
 		84DFFB7F2C79E1690014EAD3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */; };
 		84DFFB812C7A6DB40014EAD3 /* ImageUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */; };
 		84F631C52C760792005D4C06 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F631C42C760792005D4C06 /* PostResponse.swift */; };
@@ -74,6 +78,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841D75D92C7F120200159EA1 /* SketchQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchQuizViewController.swift; sourceTree = "<group>"; };
+		841D75DB2C7F121200159EA1 /* SketchQuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchQuizViewModel.swift; sourceTree = "<group>"; };
+		841D75DD2C7F121B00159EA1 /* SketchQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SketchQuizView.swift; sourceTree = "<group>"; };
+		841D75DF2C7F3F6100159EA1 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		84321E5E2C6DEEE000BA7FD7 /* CatchSketch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchSketch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,8 +105,8 @@
 		84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B1C4C62C73650C0017585A /* CatchSketchTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSketchTabBarController.swift; sourceTree = "<group>"; };
 		84B1C4C82C7368910017585A /* CatchSketchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSketchNavigationController.swift; sourceTree = "<group>"; };
-		84B1C4CB2C7368EA0017585A /* PostQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuizViewController.swift; sourceTree = "<group>"; };
-		84B1C4CD2C7369030017585A /* PostQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuizView.swift; sourceTree = "<group>"; };
+		84B1C4CB2C7368EA0017585A /* PostSketchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSketchViewController.swift; sourceTree = "<group>"; };
+		84B1C4CD2C7369030017585A /* PostSketchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSketchView.swift; sourceTree = "<group>"; };
 		84B1C4D02C73698C0017585A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		84B1C4D22C7369BA0017585A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		84B1C4F82C74B4810017585A /* AccesToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesToken.swift; sourceTree = "<group>"; };
@@ -128,7 +136,7 @@
 		84DFFB762C776A810014EAD3 /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 		84DFFB782C776AA00014EAD3 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewModel.swift; sourceTree = "<group>"; };
-		84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuizViewModel.swift; sourceTree = "<group>"; };
+		84DFFB7C2C78C5D10014EAD3 /* PostSketchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSketchViewModel.swift; sourceTree = "<group>"; };
 		84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadResponse.swift; sourceTree = "<group>"; };
 		84F631C42C760792005D4C06 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
@@ -154,6 +162,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841D75D82C7F0F2100159EA1 /* SketchQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				841D75D92C7F120200159EA1 /* SketchQuizViewController.swift */,
+				841D75DB2C7F121200159EA1 /* SketchQuizViewModel.swift */,
+				841D75DD2C7F121B00159EA1 /* SketchQuizView.swift */,
+				841D75DF2C7F3F6100159EA1 /* CommentCollectionViewCell.swift */,
+			);
+			path = SketchQuiz;
+			sourceTree = "<group>";
+		};
 		84321E552C6DEEE000BA7FD7 = {
 			isa = PBXGroup;
 			children = (
@@ -282,7 +301,8 @@
 			children = (
 				84D940CD2C7224E30054773B /* Authorization */,
 				84D940CE2C7246AA0054773B /* MainFeed */,
-				84B1C4CA2C7368D70017585A /* PostQuiz */,
+				841D75D82C7F0F2100159EA1 /* SketchQuiz */,
+				84B1C4CA2C7368D70017585A /* PostSketch */,
 				84B1C4CF2C7369750017585A /* Profile */,
 			);
 			path = Feature;
@@ -297,15 +317,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		84B1C4CA2C7368D70017585A /* PostQuiz */ = {
+		84B1C4CA2C7368D70017585A /* PostSketch */ = {
 			isa = PBXGroup;
 			children = (
-				84B1C4CB2C7368EA0017585A /* PostQuizViewController.swift */,
-				84DFFB7C2C78C5D10014EAD3 /* PostQuizViewModel.swift */,
-				84B1C4CD2C7369030017585A /* PostQuizView.swift */,
-				84DFFB752C776A520014EAD3 /* DrawViewController */,
+				84B1C4CB2C7368EA0017585A /* PostSketchViewController.swift */,
+				84DFFB7C2C78C5D10014EAD3 /* PostSketchViewModel.swift */,
+				84B1C4CD2C7369030017585A /* PostSketchView.swift */,
+				84DFFB752C776A520014EAD3 /* Draw */,
 			);
-			path = PostQuiz;
+			path = PostSketch;
 			sourceTree = "<group>";
 		};
 		84B1C4CF2C7369750017585A /* Profile */ = {
@@ -409,14 +429,14 @@
 			path = MainFeed;
 			sourceTree = "<group>";
 		};
-		84DFFB752C776A520014EAD3 /* DrawViewController */ = {
+		84DFFB752C776A520014EAD3 /* Draw */ = {
 			isa = PBXGroup;
 			children = (
 				84DFFB762C776A810014EAD3 /* DrawViewController.swift */,
 				84DFFB7A2C786C9C0014EAD3 /* DrawViewModel.swift */,
 				84DFFB782C776AA00014EAD3 /* DrawView.swift */,
 			);
-			path = DrawViewController;
+			path = Draw;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,14 +532,17 @@
 				84321EAE2C6FE19100BA7FD7 /* LogInResponse.swift in Sources */,
 				84D940D42C724CEC0054773B /* MainFeedView.swift in Sources */,
 				84DFFB792C776AA00014EAD3 /* DrawView.swift in Sources */,
+				841D75E02C7F3F6100159EA1 /* CommentCollectionViewCell.swift in Sources */,
 				84321E662C6DEEE000BA7FD7 /* SignUpView.swift in Sources */,
 				84B1C4C92C7368910017585A /* CatchSketchNavigationController.swift in Sources */,
-				84DFFB7D2C78C5D10014EAD3 /* PostQuizViewModel.swift in Sources */,
-				84B1C4CC2C7368EA0017585A /* PostQuizViewController.swift in Sources */,
+				841D75DE2C7F121B00159EA1 /* SketchQuizView.swift in Sources */,
+				84DFFB7D2C78C5D10014EAD3 /* PostSketchViewModel.swift in Sources */,
+				84B1C4CC2C7368EA0017585A /* PostSketchViewController.swift in Sources */,
 				84D940D82C7257230054773B /* APIError.swift in Sources */,
 				84D940D62C724D060054773B /* MainFeedViewModel.swift in Sources */,
 				84F631C52C760792005D4C06 /* PostResponse.swift in Sources */,
 				84D940D02C7249210054773B /* UIViewController+.swift in Sources */,
+				841D75DC2C7F121200159EA1 /* SketchQuizViewModel.swift in Sources */,
 				84321E9F2C6E1D9400BA7FD7 /* Header.swift in Sources */,
 				84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */,
 				84D940C72C71D93A0054773B /* SignTextField.swift in Sources */,
@@ -537,7 +560,7 @@
 				84D940AA2C71CF5E0054773B /* SignUpViewController.swift in Sources */,
 				84D940BE2C71D2500054773B /* Constants + AssetColor.swift in Sources */,
 				84DFFB812C7A6DB40014EAD3 /* ImageUploadResponse.swift in Sources */,
-				84B1C4CE2C7369030017585A /* PostQuizView.swift in Sources */,
+				84B1C4CE2C7369030017585A /* PostSketchView.swift in Sources */,
 				84D940B42C71D1F10054773B /* BaseCollectionViewCell.swift in Sources */,
 				84321E7E2C6DF41D00BA7FD7 /* NetworkService.swift in Sources */,
 				84DFFB7F2C79E1690014EAD3 /* ProfileViewModel.swift in Sources */,
@@ -550,6 +573,7 @@
 				84B1C4FB2C7502B70017585A /* Reactive+.swift in Sources */,
 				84321E962C6E168D00BA7FD7 /* Router.swift in Sources */,
 				84DFFB772C776A810014EAD3 /* DrawViewController.swift in Sources */,
+				841D75DA2C7F120200159EA1 /* SketchQuizViewController.swift in Sources */,
 				84FD0F732C7DC4E100EFA4E1 /* PostInfoLabel.swift in Sources */,
 				84D940B52C71D1F10054773B /* BaseView.swift in Sources */,
 				84DFFB7B2C786C9C0014EAD3 /* DrawViewModel.swift in Sources */,

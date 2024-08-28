@@ -31,7 +31,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
     
     private let uploadDateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12)
-        $0.textColor = .lightGray
+        $0.textColor = .white
     }
     
     private let heartSymbol = UIImageView().then {
@@ -131,7 +131,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
         answerCountLabel.text = "\(post.comments?.count ?? 0)"
         
         let url = post.files?.first ?? ""
-        let url2 = post.creator?.profileImage
+        let url2 = post.creator?.profileImage ?? ""
         
         var modifier = AnyModifier { request in
             var request = request
@@ -142,24 +142,15 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
         }
         
         let aaa = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
+        let bbb = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url2)
         imageView.kf.setImage(with: aaa, options: [.requestModifier(modifier)])
-//        creatorImageView.image = post.creatorImage
+        creatorImageView.kf.setImage(with: bbb, options: [.requestModifier(modifier)])
     }
     
     private func setupGradient() {
-        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
-        gradientLayer.locations = [0.5, 1.0]
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.5).cgColor]
+        gradientLayer.locations = [0.8, 1.0]
         gradientLayer.frame = bounds
     }
 }
-
-extension UIColor {
-    static func random() -> UIColor {
-        return UIColor(red: .random(in: 0...1),
-                       green: .random(in: 0...1),
-                       blue: .random(in: 0...1),
-                       alpha: 1.0)
-    }
-}
-
 

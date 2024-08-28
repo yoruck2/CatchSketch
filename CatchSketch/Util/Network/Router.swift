@@ -180,15 +180,3 @@ extension Router: TargetType {
         }
     }
 }
-//extension Router {
-//    func multipartFormData(files: Data) -> ((MultipartFormData) -> Void)? {
-//        switch self {
-//        case .post(.uploadImage(_)):
-//            return { multipartFormData in
-//                multipartFormData.append(files, withName: "files")
-//            }
-//        default:
-//            return nil
-//        }
-//    }
-//}
