@@ -8,10 +8,11 @@
 import Foundation
 
 class UserDefaultsManager {
-    
+    // TODO: propertyWrapper + generic 으로 리팩토링
     enum UserDefaultsKey: String {
         case access
         case refresh
+        case email
     }
 
     static let shared = UserDefaultsManager()
@@ -33,6 +34,15 @@ class UserDefaultsManager {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.refresh.rawValue)
+        }
+    }
+    
+    var email: String {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultsKey.email.rawValue) ?? ""
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.email.rawValue)
         }
     }
 }

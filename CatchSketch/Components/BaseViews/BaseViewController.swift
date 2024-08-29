@@ -34,13 +34,13 @@ class BaseViewController<RootView: UIView>: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
+        bindViewModel()
         configureNavigationBar()
         configureViewController()
     }
     
     func configureViewController() {}
-    func bind() {}
+    func bindViewModel() {}
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
