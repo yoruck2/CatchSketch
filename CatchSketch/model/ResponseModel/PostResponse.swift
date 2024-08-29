@@ -37,9 +37,6 @@ struct Comment: Decodable {
     let content: String?
     let createdAt: String?
     let creator: Creator?
-    let user_id: String?
-    let nick: String?
-    let profileImage: String?
 }
 
 struct Creator: Decodable {
