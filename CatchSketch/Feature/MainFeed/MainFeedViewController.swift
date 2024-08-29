@@ -15,19 +15,19 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         rootView.mainFeedCollectionView.register(MainFeedCollectionViewCell.self, forCellWithReuseIdentifier: "MainFeedCell")
         
         setupRefreshTokenExpiredHandler()
-        bindViewModel()
     }
     
-    private func bindViewModel() {
-        let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in })
+    override func bindViewModel() {
+        let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in },
+                                            postSelected: rootView.mainFeedCollectionView.rx.modelSelected(Post.self))
         let output = viewModel.transform(input: input)
         
         output.posts
-            .bind(to: rootView.mainFeedCollectionView.rx.items(cellIdentifier: "MainFeedCell", cellType: MainFeedCollectionViewCell.self)) { (row, post, cell) in
+            .bind(to: rootView.mainFeedCollectionView.rx.items(cellIdentifier: "MainFeedCell",
+                                                               cellType: MainFeedCollectionViewCell.self)) { (row, post, cell) in
                 cell.configure(with: post)
             }
             .disposed(by: disposeBag)
@@ -44,6 +44,12 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
                     self?.showAlert(title: "오류", message: "피드를 불러오는 데 실패했습니다.")
                 }
             })
+            .disposed(by: disposeBag)
+        
+        output.modelSelected
+            .bind(with: self) { owner, vc in
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
             .disposed(by: disposeBag)
         
         output.nextCursor

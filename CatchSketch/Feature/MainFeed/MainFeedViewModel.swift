@@ -14,21 +14,25 @@ final class MainFeedViewModel {
     
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
+        let postSelected: ControlEvent<Post>
     }
     
     struct Output {
         let refreshResult: Observable<Result<PostResponse, Error>>
         let posts: Observable<[Post]>
+        let modelSelected: Observable<SketchQuizViewController>
         let nextCursor: Observable<String?>
     }
     
     func transform(input: Input) -> Output {
         let postList = PublishSubject<[Post]>()
+        let nextVC = PublishSubject<SketchQuizViewController>()
         let nextCursor = PublishSubject<String?>()
         
         let refreshResult = input.viewWillAppearTrigger
             .flatMapLatest { _  in
-                NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global", limit: "10")))
+                NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global", 
+                                                                      limit: "10")))
                     .asObservable()
             }
             .share()
@@ -45,21 +49,36 @@ final class MainFeedViewModel {
             .bind(to: postList)
             .disposed(by: disposeBag)
         
-        refreshResult
-            .compactMap { result -> String? in
-                switch result {
-                case .success(let response):
-                    return response.next_cursor
-                case .failure:
-                    return nil
+//        refreshResult
+//            .compactMap { result -> String? in
+//                switch result {
+//                case .success(let response):
+//                    return response.next_cursor
+//                case .failure:
+//                    return nil
+//                }
+//            }
+//            .bind(to: nextCursor)
+//            .disposed(by: disposeBag)
+        
+        input.postSelected
+            .subscribe(with: self, onNext: { owner, post in
+                
+                if post.comments == nil || ((post.comments?.isEmpty) != nil) {
+                    print("♻️")
                 }
-            }
-            .bind(to: nextCursor)
+                print("😡")
+                print(post.comments)
+                print("😡")
+                
+                nextVC.onNext(SketchQuizViewController(data: post.comments ?? []))
+            })
             .disposed(by: disposeBag)
         
         return Output(
             refreshResult: refreshResult,
-            posts: postList.asObservable(),
+            posts: postList.asObservable(), 
+            modelSelected: nextVC,
             nextCursor: nextCursor.asObservable()
         )
     }

@@ -14,12 +14,7 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
     private let disposeBag = DisposeBag()
     private var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bindViewModel()
-    }
-    
-    private func bindViewModel() {
+    override func bindViewModel() {
         let sketchData = Observable.create { [weak self] observer in
             self?.saveCompletionHandler = { drawing, image in
                 observer.onNext((drawing, image))
@@ -95,10 +90,5 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
             image.draw(in: CGRect(origin: .zero, size: size))
         }
     }
-    
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
-        present(alert, animated: true)
-    }
+
 }

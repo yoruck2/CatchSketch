@@ -14,31 +14,30 @@ class SketchQuizView: BaseView {
         $0.contentMode = .scaleAspectFit
         $0.backgroundColor = .lightGray
     }
-    let commentCollectionView = UICollectionView().then {
-        $0.backgroundColor = .systemGreen
-        $0.layer.cornerRadius = 20
+    let commentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.commentCollectionViewLayout).then {
+        $0.backgroundColor = .clear
     }
     let catchButton = UIButton()
 
     override func configureHierarchy() {
         [sketchImageView, commentCollectionView, catchButton].forEach(addSubview)
     }
-
+    
     override func configureLayout() {
         sketchImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.4)
+            make.height.equalToSuperview().multipliedBy(0.6)
         }
 
         commentCollectionView.snp.makeConstraints { make in
             make.top.equalTo(sketchImageView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(catchButton.snp.top).offset(-20)
+            make.bottom.equalToSuperview().inset(10)
         }
 
         catchButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-20)
+            make.bottom.equalTo(commentCollectionView.snp.bottom).inset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
             make.height.equalTo(40)

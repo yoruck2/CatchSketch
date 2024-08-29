@@ -7,31 +7,36 @@
 
 import UIKit
 import SnapKit
+import Then
+import Kingfisher
 
 enum CommentType {
     case creator
     case commenter
+    case me
+    case correctAnswer
 }
 
 class BubbleView: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)), cornerRadius: 8)
         let trianglePath = UIBezierPath()
-        
-        if self.tag == 0 { // Creator
-            trianglePath.move(to: CGPoint(x: 0, y: rect.height / 2 - 10))
-            trianglePath.addLine(to: CGPoint(x: 0, y: rect.height / 2 + 10))
-            trianglePath.addLine(to: CGPoint(x: 10, y: rect.height / 2))
-        } else { // Commenter
-            trianglePath.move(to: CGPoint(x: rect.width, y: rect.height / 2 - 10))
-            trianglePath.addLine(to: CGPoint(x: rect.width, y: rect.height / 2 + 10))
-            trianglePath.addLine(to: CGPoint(x: rect.width - 10, y: rect.height / 2))
+
+        if self.tag == 0 {
+            trianglePath.move(to: CGPoint(x: 10, y: rect.height / 2 - 10))
+            trianglePath.addLine(to: CGPoint(x: 10, y: rect.height / 2 + 10))
+            trianglePath.addLine(to: CGPoint(x: 0, y: rect.height / 2))
+        } else {
+            trianglePath.move(to: CGPoint(x: rect.width - 10, y: rect.height / 2 - 10))
+            trianglePath.addLine(to: CGPoint(x: rect.width - 10, y: rect.height / 2 + 10))
+            trianglePath.addLine(to: CGPoint(x: rect.width, y: rect.height / 2))
         }
         path.append(trianglePath)
         UIColor.systemGray6.setFill()
         path.fill()
     }
 }
+
 
 class CommentCollectionViewCell: BaseCollectionViewCell {
     let profileImageView = UIImageView()
@@ -51,7 +56,7 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
         
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.cornerRadius = 20 // Assuming a size of 40x40
+        profileImageView.layer.cornerRadius = 20
         
         commentView.backgroundColor = .clear
         
@@ -67,7 +72,7 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
         switch commentType {
         case .creator:
             configureCreatorLayout()
-        case .commenter:
+        default:
             configureCommenterLayout()
         }
     }
@@ -78,7 +83,7 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
         profileImageView.snp.remakeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(8)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.size.equalTo(CGSize(width: 50, height: 50))
         }
         
         nicknameLabel.snp.remakeConstraints { make in
@@ -96,7 +101,7 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
         
         commentLabel.snp.remakeConstraints { make in
             make.edges.equalTo(commentView).inset(UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 22))
-            make.width.lessThanOrEqualTo(contentView).multipliedBy(0.7) // Limit width to 70% of contentView
+            make.width.lessThanOrEqualTo(contentView).multipliedBy(0.7)
         }
     }
     
@@ -130,10 +135,32 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configure(with type: CommentType, nickname: String, comment: String) {
+    func setUpCellData(with type: CommentType, data: Comment) {
         commentType = type
-        nicknameLabel.text = nickname
-        commentLabel.text = comment
+        
+        let url = data.creator?.profileImage ?? ""
+        //        print(data.profileImage, "🔥🔥🔥🔥🔥", url)
+        let modifier = AnyModifier { request in
+            var request = request
+            request.setValue(APIAuth.catchSketchAPI.key, forHTTPHeaderField: Header.sesacKey.rawValue)
+            request.setValue(UserDefaultsManager.shared.accessToken, forHTTPHeaderField: Header.authorization.rawValue)
+            
+            return request
+        }
+        let commentCreatorImageUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
+        print(commentCreatorImageUrl)
+        profileImageView.kf.setImage(with: commentCreatorImageUrl, options: [.requestModifier(modifier)])
+        profileImageView.kf.setImage(with: commentCreatorImageUrl, options: [.requestModifier(modifier)]) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.profileImageView.image = data.image
+            case .failure(let error):
+                print(error)
+            }
+        }
+        nicknameLabel.text = data.creator?.nick
+        commentLabel.text = data.content
+        
         setNeedsLayout()
     }
     
