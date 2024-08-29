@@ -133,7 +133,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
         let url = post.files?.first ?? ""
         let url2 = post.creator?.profileImage ?? ""
         
-        var modifier = AnyModifier { request in
+        let modifier = AnyModifier { request in
             var request = request
             request.setValue(APIAuth.catchSketchAPI.key, forHTTPHeaderField: Header.sesacKey.rawValue)
             request.setValue(UserDefaultsManager.shared.accessToken, forHTTPHeaderField: Header.authorization.rawValue)
@@ -141,10 +141,10 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
             return request
         }
         
-        let aaa = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
-        let bbb = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url2)
-        imageView.kf.setImage(with: aaa, options: [.requestModifier(modifier)])
-        creatorImageView.kf.setImage(with: bbb, options: [.requestModifier(modifier)])
+        let sketchUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
+        let creatorUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url2)
+        imageView.kf.setImage(with: sketchUrl, options: [.requestModifier(modifier)])
+        creatorImageView.kf.setImage(with: creatorUrl, options: [.requestModifier(modifier)])
     }
     
     private func setupGradient() {

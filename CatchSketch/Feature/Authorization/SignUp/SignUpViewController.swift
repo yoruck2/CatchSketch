@@ -13,7 +13,7 @@ final class SignUpViewController: BaseViewController<SignUpView> {
     let disposeBag = DisposeBag()
     let viewModel = SignUpViewModel()
     
-    override func bind() {
+    override func bindViewModel() {
         let input = SignUpViewModel.Input(tap: rootView.signUpButton.rx.tap,
                                           emailText: rootView.emailTextField.rx.text.orEmpty,
                                           passwordText: rootView.passwordTextField.rx.text.orEmpty,
@@ -39,7 +39,7 @@ final class SignUpViewController: BaseViewController<SignUpView> {
                         owner.showAlert(title: "중복 닉네임",
                                         message: "다른분이 사용중인 이메일 또는 닉네임 입니다.\n다른 닉네임을 입력해주세요!")
                     default: 
-                        print(error.asAFError?.responseCode)
+                        print(error)
                         return
                     }
                     print("🔥 회원가입 실패: \(error.localizedDescription)")

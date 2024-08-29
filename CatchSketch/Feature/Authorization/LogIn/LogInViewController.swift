@@ -13,7 +13,7 @@ final class LogInViewController: BaseViewController<LogInView> {
     let viewModel = LogInViewModel()
     let disposeBag = DisposeBag()
     
-    override func bind() {
+    override func bindViewModel() {
         let input = LogInViewModel.Input(tap: rootView.signInButton.rx.tap,
                                           emailText: rootView.emailTextField.rx.text.orEmpty,
                                           passwordText: rootView.passwordTextField.rx.text.orEmpty)

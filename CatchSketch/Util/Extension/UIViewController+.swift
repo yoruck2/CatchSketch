@@ -18,7 +18,7 @@ extension UIViewController {
         }
     }
     
-    func showAlert(title: String,
+    func showAlert(title: String? = nil,
                    message: String,
                    preferredStyle: UIAlertController.Style = .alert,
                    actions: [UIAlertAction] = [],
