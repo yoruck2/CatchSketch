@@ -87,11 +87,17 @@ class DrawViewController: BaseViewController<DrawView> {
     }
     
     private func showBackAlert() {
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let backAction = UIAlertAction(title: "네", style: .destructive) { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }
-        showAlert(title: "그리기 취소", message: "그리던 내용이 사라집니다\n그래도 뒤로갈래요?",actions: [cancelAction, backAction])
+        let alert = CatchSketchAlertController.create()
+            .addTitle("그리기 취소")
+            .addMessage("그리던 내용이 사라집니다\n그래도 뒤로갈래요?")
+            .addButton(title: "취소",style: .clear) { [weak self] () -> Void in
+                self?.dismiss(animated: true)
+            }
+            .addButton(title: "뒤로가기", style: .destructive) { [weak self] () -> Void in
+                self?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
+            }
+        present(alert, animated: true)
     }
     
     required init?(coder: NSCoder) {

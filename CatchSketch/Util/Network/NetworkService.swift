@@ -141,5 +141,9 @@ extension NetworkService {
     func postImage(query: Router) -> Single<Result<ImageUploadResponse, Error>> {
         return request(api: query)
     }
+    
+    func postComment(query: Router) -> Single<Result<Comment, Error>> {
+        return request(api: query)
+    }
 }
 

@@ -26,11 +26,18 @@ final class LogInViewController: BaseViewController<LogInView> {
                     UserDefaultsManager.shared.accessToken = value.accessToken
                     UserDefaultsManager.shared.refreshToken = value.refreshToken
                     // 🚧 임시
-//                    owner.changeRootViewController(CatchSketchTabBarController())
+                    owner.changeRootViewController(CatchSketchTabBarController())
 //                    owner.present(CatchSketchTabBarController(), animated: true)
-                    owner.navigationController?.pushViewController(CatchSketchTabBarController(), animated: true)
+//                    owner.navigationController?.pushViewController(CatchSketchTabBarController(), animated: true)
                 case .failure(let error):
-                    owner.showAlert(title: "로그인 실패", message: "계정을 확인해주세요. 🥲")
+                    let alert = CatchSketchAlertController.create()
+                        .addTitle("로그인 실패")
+                        .addMessage("계정을 확인해주세요. 🥲")
+                        .addButton(title: "확인", style: .filled) {
+                            self.dismiss(animated: true)
+                        }
+//                    owner.showAlert(title: "로그인 실패", message: "계정을 확인해주세요. 🥲")
+                    self.present(alert, animated: true)
                     print(error)
                 }
             }.disposed(by: disposeBag)

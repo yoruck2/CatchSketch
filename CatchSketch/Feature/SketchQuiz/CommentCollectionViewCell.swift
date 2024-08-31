@@ -10,61 +10,54 @@ import SnapKit
 import Then
 import Kingfisher
 
-enum CommentType {
+enum CommentType: CaseIterable {
     case creator
     case commenter
     case me
     case correctAnswer
 }
 
-class BubbleView: UIView {
-    override func draw(_ rect: CGRect) {
-        let path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)), cornerRadius: 8)
-        let trianglePath = UIBezierPath()
-
-        if self.tag == 0 {
-            trianglePath.move(to: CGPoint(x: 10, y: rect.height / 2 - 10))
-            trianglePath.addLine(to: CGPoint(x: 10, y: rect.height / 2 + 10))
-            trianglePath.addLine(to: CGPoint(x: 0, y: rect.height / 2))
-        } else {
-            trianglePath.move(to: CGPoint(x: rect.width - 10, y: rect.height / 2 - 10))
-            trianglePath.addLine(to: CGPoint(x: rect.width - 10, y: rect.height / 2 + 10))
-            trianglePath.addLine(to: CGPoint(x: rect.width, y: rect.height / 2))
-        }
-        path.append(trianglePath)
-        UIColor.systemGray6.setFill()
-        path.fill()
-    }
-}
-
-
 class CommentCollectionViewCell: BaseCollectionViewCell {
-    let profileImageView = UIImageView()
+    let profileImageView = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 20
+    }
     let commentView = BubbleView()
-    let nicknameLabel = UILabel()
-    let commentLabel = UILabel()
-    
-    var commentType: CommentType = .commenter {
-        didSet {
-            setupLayout()
-        }
+    let nicknameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .heavy)
+    }
+    let commentLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.numberOfLines = 0
     }
     
-    override func configureLayout() {
-        
-        [profileImageView, commentView, nicknameLabel, commentLabel].forEach { contentView.addSubview($0) }
-        
-        profileImageView.clipsToBounds = true
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.cornerRadius = 20
-        
+    var commentType: CommentType = .commenter
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileImageView.image = nil
+        nicknameLabel.text = nil
+        commentLabel.text = nil
+        commentType = .commenter
+        resetLayout()
+    }
+    
+    override func configureHierarchy() {
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(commentView)
+        commentView.addSubview(nicknameLabel)
+        commentView.addSubview(commentLabel)
+
         commentView.backgroundColor = .clear
-        
-        nicknameLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        commentLabel.font = .systemFont(ofSize: 14)
-        commentLabel.numberOfLines = 0
-        
+        resetLayout()
+    }
+    
+    private func resetLayout() {
+        profileImageView.snp.removeConstraints()
+        commentView.snp.removeConstraints()
+        nicknameLabel.snp.removeConstraints()
+        commentLabel.snp.removeConstraints()
         setupLayout()
     }
     
@@ -80,84 +73,66 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
     private func configureCreatorLayout() {
         commentView.tag = 0
         
-        profileImageView.snp.remakeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(8)
-            make.size.equalTo(CGSize(width: 50, height: 50))
-        }
+        profileImageView.isHidden = true
         
-        nicknameLabel.snp.remakeConstraints { make in
-            make.top.equalTo(profileImageView)
-            make.leading.equalTo(profileImageView.snp.trailing).offset(18)
-            make.trailing.lessThanOrEqualToSuperview().offset(-16)
-        }
-        
-        commentView.snp.remakeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).offset(4)
-            make.leading.equalTo(nicknameLabel)
+        commentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.leading.equalToSuperview().offset(18)
             make.trailing.lessThanOrEqualToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-8)
         }
         
-        commentLabel.snp.remakeConstraints { make in
-            make.edges.equalTo(commentView).inset(UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 22))
-            make.width.lessThanOrEqualTo(contentView).multipliedBy(0.7)
+        nicknameLabel.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().offset(12)
+            make.trailing.lessThanOrEqualToSuperview().offset(-22)
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(4)
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.lessThanOrEqualToSuperview().offset(-22)
+            make.bottom.equalToSuperview().offset(-8)
         }
     }
-    
     private func configureCommenterLayout() {
         commentView.tag = 1
         
-        profileImageView.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
+        profileImageView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(5)
+            make.top.equalToSuperview().inset(10)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
-        commentView.snp.remakeConstraints { make in
+        commentView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.trailing.equalTo(profileImageView.snp.leading).offset(-18)
+            make.trailing.equalTo(profileImageView.snp.leading).offset(-8)
             make.leading.greaterThanOrEqualToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-8)
         }
         
-        nicknameLabel.snp.remakeConstraints { make in
-            make.top.leading.equalTo(commentView).offset(8)
-            make.trailing.lessThanOrEqualTo(commentView).offset(-8)
+        nicknameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().offset(-22)
+            make.leading.greaterThanOrEqualToSuperview().offset(12)
         }
         
-        commentLabel.snp.remakeConstraints { make in
+        commentLabel.snp.makeConstraints { make in
             make.top.equalTo(nicknameLabel.snp.bottom).offset(4)
-            make.leading.equalTo(commentView).offset(12)
-            make.trailing.equalTo(commentView).offset(-22)
-            make.bottom.equalTo(commentView).offset(-8)
-            make.width.lessThanOrEqualTo(contentView).multipliedBy(0.7)
+            make.leading.greaterThanOrEqualToSuperview().offset(12)
+            make.trailing.equalToSuperview().offset(-22)
+            make.bottom.equalToSuperview().offset(-8)
         }
+        
+        nicknameLabel.textAlignment = .right
     }
     
     func setUpCellData(with type: CommentType, data: Comment) {
         commentType = type
+        resetLayout()
         
         let url = data.creator?.profileImage ?? ""
-        //        print(data.profileImage, "🔥🔥🔥🔥🔥", url)
-        let modifier = AnyModifier { request in
-            var request = request
-            request.setValue(APIAuth.catchSketchAPI.key, forHTTPHeaderField: Header.sesacKey.rawValue)
-            request.setValue(UserDefaultsManager.shared.accessToken, forHTTPHeaderField: Header.authorization.rawValue)
-            
-            return request
-        }
-        let commentCreatorImageUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
-        print(commentCreatorImageUrl)
-        profileImageView.kf.setImage(with: commentCreatorImageUrl, options: [.requestModifier(modifier)])
-        profileImageView.kf.setImage(with: commentCreatorImageUrl, options: [.requestModifier(modifier)]) { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.profileImageView.image = data.image
-            case .failure(let error):
-                print(error)
-            }
-        }
+        
+        profileImageView.setImageWithToken(urlString: url, placeholder: UIImage(systemName: "person.crop.circle"))
         nicknameLabel.text = data.creator?.nick
         commentLabel.text = data.content
         
@@ -167,5 +142,32 @@ class CommentCollectionViewCell: BaseCollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         commentView.setNeedsDisplay()
+    }
+}
+
+
+class BubbleView: UIView {
+    override func draw(_ rect: CGRect) {
+        var path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)), cornerRadius: 8)
+        let trianglePath = UIBezierPath()
+        
+        if self.tag == 0 {
+            // 왼쪽에 삼각형
+            path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)), cornerRadius: 8)
+            
+            trianglePath.move(to: CGPoint(x: 10, y: 20))
+            trianglePath.addLine(to: CGPoint(x: 0, y: 30))
+            trianglePath.addLine(to: CGPoint(x: 10, y: 40))
+        } else {
+            // 오른쪽에 삼각형
+            path = UIBezierPath(roundedRect: rect.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)), cornerRadius: 8)
+            
+            trianglePath.move(to: CGPoint(x: rect.width - 10, y: 20))
+            trianglePath.addLine(to: CGPoint(x: rect.width, y: 30))
+            trianglePath.addLine(to: CGPoint(x: rect.width - 10, y: 40))
+        }
+        path.append(trianglePath)
+        UIColor.systemGray6.setFill()
+        path.fill()
     }
 }

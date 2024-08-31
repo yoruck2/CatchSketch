@@ -42,7 +42,7 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
         
         output.showDrawViewController
             .drive(onNext: { [weak self] drawing in
-                guard let self = self else { return }
+                guard let self else { return }
                 let drawVC = DrawViewController(rootView: DrawView(), initialDrawing: drawing)
                 drawVC.saveCompletionHandler = self.saveCompletionHandler
                 self.navigationController?.pushViewController(drawVC, animated: true)
@@ -67,7 +67,12 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success:
-                    self?.showAlert(message: "스케치 퀴즈 등록 완료! 😆")
+                    let alert = CatchSketchAlertController.create()
+                        .addTitle("스케치 퀴즈 등록 완료! 😆")
+                        .addButton(title: "확인",style: .filled) {
+                            self?.dismiss(animated: true)
+                        }
+                    self?.present(alert, animated: true)
                 case .failure(let error):
                     self?.showAlert(message: "포스트 등록 실패: \(error.localizedDescription)")
                 }

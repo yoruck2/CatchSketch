@@ -21,10 +21,11 @@ enum Router {
     }
     
     enum PostEndpoint {
-           case uploadImage(files: Data)
-           case create(post: PostRequest)
-           case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
-       }
+        case uploadImage(files: Data)
+        case create(post: PostRequest)
+        case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
+        case postComment(comment: Comment, postID: String)
+    }
     enum ProfileEndpoint {
         case fetch
         case edit(data: Profile.Edit)
@@ -51,7 +52,7 @@ extension Router: TargetType {
             }
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage, .create: 
+            case .uploadImage, .create, .postComment:
                 return .post
             case .postView:
                 return .get
@@ -80,6 +81,8 @@ extension Router: TargetType {
                 return "/posts/files"
             case .postView, .create:
                 return "/posts"
+            case .postComment( _, let postID):
+                return "/posts/\(postID)/comments"
             }
         }
     }
@@ -108,6 +111,8 @@ extension Router: TargetType {
             case .postView:
                 headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
+            case .postComment(comment: let comment, postID: let postID):
+                headers[Header.contentType.rawValue] = Header.json.rawValue
             }
         case .profile(let endpoint):
             switch endpoint {
@@ -137,9 +142,7 @@ extension Router: TargetType {
             }
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage:
-                return nil
-            case .create:
+            case .uploadImage, .postComment, .create:
                 return nil
             case .postView(let productID, let cursor, let limit):
                 return ["product_id": productID ?? "", "next": cursor ?? "", "limit": limit ?? ""]
@@ -170,12 +173,13 @@ extension Router: TargetType {
         case .post(let endpoint):
             switch endpoint {
             case .uploadImage(let files):
-                let imageUpload = files
-                return try? JSONEncoder.encode(with: imageUpload)
+                return try? JSONEncoder.encode(with: files)
             case .create(let post):
                 return try? JSONEncoder.encode(with: post)
             case .postView:
                 return nil
+            case .postComment(let comment, let postID):
+                return try? JSONEncoder.encode(with: comment)
             }
         }
     }

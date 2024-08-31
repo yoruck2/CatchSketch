@@ -68,19 +68,6 @@ class PostSketchViewModel {
             }
             .share()
         
-        postResult
-            .subscribe(onNext: { [weak self] (result: Result<Post, Error>) in
-                switch result {
-                case .success(let post):
-                    if let postId = post.post_id {
-                        self?.showAlertRelay.accept("포스트 등록 완료!")
-                    }
-                case .failure(let error):
-                    self?.showAlertRelay.accept("포스트 생성에 실패했습니다: \(error.localizedDescription)")
-                }
-            })
-            .disposed(by: disposeBag)
-        
         return Output(
             currentDrawing: drawingRelay.asDriver(),
             currentImage: imageRelay.asDriver(),
