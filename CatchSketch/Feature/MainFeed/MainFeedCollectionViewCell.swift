@@ -67,7 +67,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureLayout() {
-
+        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -133,18 +133,8 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
         let url = post.files?.first ?? ""
         let url2 = post.creator?.profileImage ?? ""
         
-        let modifier = AnyModifier { request in
-            var request = request
-            request.setValue(APIAuth.catchSketchAPI.key, forHTTPHeaderField: Header.sesacKey.rawValue)
-            request.setValue(UserDefaultsManager.shared.accessToken, forHTTPHeaderField: Header.authorization.rawValue)
-            
-            return request
-        }
-        
-        let sketchUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url)
-        let creatorUrl = URL(string: APIAuth.catchSketchAPI.baseURL + "/v1/" + url2)
-        imageView.kf.setImage(with: sketchUrl, options: [.requestModifier(modifier)])
-        creatorImageView.kf.setImage(with: creatorUrl, options: [.requestModifier(modifier)])
+        imageView.setImageWithToken(urlString: url, placeholder: UIImage(systemName: "photo"))
+        creatorImageView.setImageWithToken(urlString: url2, placeholder: UIImage(systemName: "person.crop.circle"))
     }
     
     private func setupGradient() {

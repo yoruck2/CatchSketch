@@ -63,15 +63,7 @@ final class MainFeedViewModel {
         
         input.postSelected
             .subscribe(with: self, onNext: { owner, post in
-                
-                if post.comments == nil || ((post.comments?.isEmpty) != nil) {
-                    print("♻️")
-                }
-                print("😡")
-                print(post.comments)
-                print("😡")
-                
-                nextVC.onNext(SketchQuizViewController(data: post.comments ?? []))
+                nextVC.onNext(SketchQuizViewController(data: post))
             })
             .disposed(by: disposeBag)
         

@@ -60,5 +60,3 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
             .disposed(by: disposeBag)
     }
 }
-//http://lslp.sesac.co.kr:31819/v1/posts/posts?limit=nil&next=nil
-//http://lslp.sesac.co.kr:31819/v1/posts?limit=100&next=66c36c8ed46f4af131d9cf86
