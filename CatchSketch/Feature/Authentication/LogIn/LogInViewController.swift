@@ -25,6 +25,7 @@ final class LogInViewController: BaseViewController<LogInView> {
                 case .success(let value):
                     UserDefaultsManager.shared.accessToken = value.accessToken
                     UserDefaultsManager.shared.refreshToken = value.refreshToken
+                    UserDefaultsManager.shared.userID = value.user_id
                     // 🚧 임시
                     owner.changeRootViewController(CatchSketchTabBarController())
 //                    owner.present(CatchSketchTabBarController(), animated: true)

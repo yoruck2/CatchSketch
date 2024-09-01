@@ -12,6 +12,7 @@ class UserDefaultsManager {
     enum UserDefaultsKey: String {
         case access
         case refresh
+        case userID
         case email
     }
 
@@ -36,7 +37,14 @@ class UserDefaultsManager {
             UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.refresh.rawValue)
         }
     }
-    
+    var userID: String {
+        get {
+            UserDefaults.standard.string(forKey: UserDefaultsKey.userID.rawValue) ?? ""
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.userID.rawValue)
+        }
+    }
     var email: String {
         get {
             UserDefaults.standard.string(forKey: UserDefaultsKey.email.rawValue) ?? ""
@@ -44,5 +52,5 @@ class UserDefaultsManager {
         set {
             UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.email.rawValue)
         }
-    }
+    }    
 }
