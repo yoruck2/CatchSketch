@@ -24,7 +24,7 @@ class PostSketchViewModel {
         let showDrawViewController: Driver<PKDrawing?>
         let correctAnswerText: Observable<String>
         let isPostValid: Driver<Bool>
-        let postResult: Observable<Result<Post, Error>>
+        let postResult: Observable<Result<PostResponse.Post, Error>>
         let showAlert: Observable<String>
     }
     
@@ -51,9 +51,9 @@ class PostSketchViewModel {
             .withLatestFrom(drawingRelay)
             .asDriver(onErrorDriveWith: .empty())
         
-        let postResult: Observable<Result<Post, Error>> = input.postButtonTapped
+        let postResult: Observable<Result<PostResponse.Post, Error>> = input.postButtonTapped
             .withLatestFrom(Observable.combineLatest(input.quizImage, input.correctAnswerText))
-            .flatMapLatest { [weak self] (image, answer) -> Observable<Result<Post, Error>> in
+            .flatMapLatest { [weak self] (image, answer) -> Observable<Result<PostResponse.Post, Error>> in
                 guard let self = self else { return .empty() }
                 guard !answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                     self.showAlertRelay.accept("정답을 입력해 주세요")
@@ -79,11 +79,11 @@ class PostSketchViewModel {
         )
     }
     
-    private func uploadImageAndCreatePost(imageData: Data, answer: String) -> Observable<Result<Post, Error>> {
+    private func uploadImageAndCreatePost(imageData: Data, answer: String) -> Observable<Result<PostResponse.Post, Error>> {
         // 이미지 업로드
         return NetworkService.shared.request(api: .post(.uploadImage(files: imageData)))
             .asObservable()
-            .flatMap { (result: Result<ImageUploadResponse, Error>) -> Observable<Result<Post, Error>> in
+            .flatMap { (result: Result<ImageUploadResponse, Error>) -> Observable<Result<PostResponse.Post, Error>> in
                 switch result {
                 case .success(let response):
                     guard let imagePath = response.files.first else {
@@ -96,5 +96,15 @@ class PostSketchViewModel {
                     return .just(.failure(error))
                 }
             }
+    }
+}
+
+extension UIView {
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0]
+        layer.add(animation, forKey: "shake")
     }
 }
