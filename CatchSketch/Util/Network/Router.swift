@@ -24,7 +24,7 @@ enum Router {
         case uploadImage(files: Data)
         case create(post: PostRequest)
         case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
-        case postComment(comment: Comment, postID: String)
+        case postComment(comment: PostRequest.Comment, postID: String)
     }
     enum ProfileEndpoint {
         case fetch
@@ -113,6 +113,7 @@ extension Router: TargetType {
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             case .postComment(comment: let comment, postID: let postID):
                 headers[Header.contentType.rawValue] = Header.json.rawValue
+                headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             }
         case .profile(let endpoint):
             switch endpoint {

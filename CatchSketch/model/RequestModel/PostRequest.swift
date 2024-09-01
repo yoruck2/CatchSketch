@@ -27,6 +27,9 @@ struct PostRequest: Encodable {
 //        let next: String?
 //        let limit: String?
 //    }
+    struct Comment: Encodable {
+        let content: String?
+    }
 }
 struct ImageUpload: Encodable {
     let files: [Data]

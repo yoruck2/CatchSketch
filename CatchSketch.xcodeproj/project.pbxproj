@@ -14,6 +14,7 @@
 		841D75EA2C80674C00159EA1 /* UICollectionViewLayout+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75E92C80674C00159EA1 /* UICollectionViewLayout+.swift */; };
 		841D75EC2C81860C00159EA1 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75EB2C81860C00159EA1 /* UIImageView+.swift */; };
 		841D75EE2C82DFDF00159EA1 /* CatchSketchAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75ED2C82DFDF00159EA1 /* CatchSketchAlertController.swift */; };
+		841D75F02C84975100159EA1 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75EF2C84975100159EA1 /* Date+.swift */; };
 		84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */; };
 		84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */; };
 		84321E662C6DEEE000BA7FD7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E652C6DEEE000BA7FD7 /* SignUpView.swift */; };
@@ -88,6 +89,7 @@
 		841D75E92C80674C00159EA1 /* UICollectionViewLayout+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+.swift"; sourceTree = "<group>"; };
 		841D75EB2C81860C00159EA1 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		841D75ED2C82DFDF00159EA1 /* CatchSketchAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSketchAlertController.swift; sourceTree = "<group>"; };
+		841D75EF2C84975100159EA1 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		84321E5E2C6DEEE000BA7FD7 /* CatchSketch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchSketch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				84B1C4FA2C7502B70017585A /* Reactive+.swift */,
 				841D75E92C80674C00159EA1 /* UICollectionViewLayout+.swift */,
 				841D75EB2C81860C00159EA1 /* UIImageView+.swift */,
+				841D75EF2C84975100159EA1 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				84B1C4CC2C7368EA0017585A /* PostSketchViewController.swift in Sources */,
 				84D940D82C7257230054773B /* APIError.swift in Sources */,
 				84D940D62C724D060054773B /* MainFeedViewModel.swift in Sources */,
+				841D75F02C84975100159EA1 /* Date+.swift in Sources */,
 				84F631C52C760792005D4C06 /* PostResponse.swift in Sources */,
 				84D940D02C7249210054773B /* UIViewController+.swift in Sources */,
 				841D75DC2C7F121200159EA1 /* SketchQuizViewModel.swift in Sources */,
