@@ -22,7 +22,7 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     
     override func bindViewModel() {
         let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in },
-                                            postSelected: rootView.mainFeedCollectionView.rx.modelSelected(Post.self))
+                                            postSelected: rootView.mainFeedCollectionView.rx.modelSelected(PostResponse.Post.self))
         let output = viewModel.transform(input: input)
         
         output.posts
@@ -55,8 +55,9 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
         output.nextCursor
             .subscribe(onNext: { cursor in
                 print("Next cursor: \(cursor ?? "None")")
-                // 여기서 필요하다면 다음 페이지 로드 로직을 구현할 수 있습니다.
+                
             })
             .disposed(by: disposeBag)
     }
 }
+

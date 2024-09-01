@@ -14,18 +14,18 @@ final class MainFeedViewModel {
     
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
-        let postSelected: ControlEvent<Post>
+        let postSelected: ControlEvent<PostResponse.Post>
     }
     
     struct Output {
         let refreshResult: Observable<Result<PostResponse, Error>>
-        let posts: Observable<[Post]>
+        let posts: Observable<[PostResponse.Post]>
         let modelSelected: Observable<SketchQuizViewController>
         let nextCursor: Observable<String?>
     }
     
     func transform(input: Input) -> Output {
-        let postList = PublishSubject<[Post]>()
+        let postList = PublishSubject<[PostResponse.Post]>()
         let nextVC = PublishSubject<SketchQuizViewController>()
         let nextCursor = PublishSubject<String?>()
         
@@ -38,7 +38,7 @@ final class MainFeedViewModel {
             .share()
         
         refreshResult
-            .compactMap { result -> [Post]? in
+            .compactMap { result -> [PostResponse.Post]? in
                 switch result {
                 case .success(let response):
                     return response.data

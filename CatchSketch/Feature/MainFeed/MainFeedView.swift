@@ -10,6 +10,14 @@ import SnapKit
 
 class MainFeedView: BaseView {
     
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "paper3")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
     lazy var mainFeedCollectionView: UICollectionView = {
         let layout = CenteredCollectionViewFlowLayout()
         let height = UIScreen.main.bounds.height
@@ -18,7 +26,7 @@ class MainFeedView: BaseView {
         layout.scrollDirection = .vertical
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.decelerationRate = .fast
         collectionView.showsVerticalScrollIndicator = false
 
@@ -26,14 +34,22 @@ class MainFeedView: BaseView {
         return collectionView
     }()
     
-    override func configureLayout() {
+    override func configureHierarchy() {
+        addSubview(backgroundImageView)
         addSubview(mainFeedCollectionView)
+    }
+    
+    override func configureLayout() {
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         mainFeedCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
 }
+
 class CenteredCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let collectionView = collectionView else { return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity) }

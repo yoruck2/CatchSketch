@@ -124,9 +124,9 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
         gradientLayer.frame = bounds
     }
     
-    func configure(with post: Post) {
+    func configure(with post: PostResponse.Post) {
         creatorNameLabel.text = post.creator?.nick
-        uploadDateLabel.text = post.createdAt
+        uploadDateLabel.text = post.createdAt?.toRelativeTimeString()
         favoriteCountLabel.text = "\(post.likes?.count ?? 0)"
         answerCountLabel.text = "\(post.comments?.count ?? 0)"
         
