@@ -6,16 +6,17 @@
 //
 
 import UIKit
+import Toast
 import RxSwift
 import RxCocoa
 
 
-class SketchQuizViewController: BaseViewController<SketchQuizView> {
+final class SketchQuizViewController: BaseViewController<SketchQuizView> {
     private let disposeBag = DisposeBag()
     private let viewModel: SketchQuizViewModel
     private var currentAlert: CatchSketchAlertController?
     
-    init(data: Post) {
+    init(data: PostResponse.Post) {
         viewModel = SketchQuizViewModel(postData: data)
         
         super.init(rootView: SketchQuizView())
@@ -29,7 +30,7 @@ class SketchQuizViewController: BaseViewController<SketchQuizView> {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func bindViewModel() {
         let input = SketchQuizViewModel.Input(catchButtonTap: rootView.catchButton.rx.tap)
         let output = viewModel.transform(input: input)
@@ -49,6 +50,7 @@ class SketchQuizViewController: BaseViewController<SketchQuizView> {
         output.showAlert
             .bind { [weak self] alert in
                 self?.currentAlert = alert
+                self?.currentAlert?.modalTransitionStyle = .coverVertical
                 self?.present(alert, animated: true)
             }.disposed(by: disposeBag)
         
@@ -57,10 +59,15 @@ class SketchQuizViewController: BaseViewController<SketchQuizView> {
                 switch action {
                 case .cancel:
                     self?.currentAlert?.dismiss(animated: true)
-                case .confirm(let text):
+                case .confirm(let message):
+                    
                     self?.currentAlert?.dismiss(animated: true)
-                    print("Confirmed with text: \(text)")
-                    // 여기서 확인 액션에 대한 추가 처리를 할 수 있습니다.
+                    
+                case .showToast(let message):
+                    self?.view.makeToast(message)
+                    if let alertController = self?.presentedViewController as? CatchSketchAlertController {
+                        alertController.view.shake()
+                    }
                 }
             }.disposed(by: disposeBag)
     }
