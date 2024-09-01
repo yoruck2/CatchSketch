@@ -8,10 +8,32 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class CatchSketchAlertController: UIViewController {
     
+    enum ButtonStyle {
+        case clear
+        case destructive
+        case filled
+    }
+    
+    private let disposeBag = DisposeBag()
+    private var confirmAction: ((String) -> Observable<Void>)?
+    
+    private let backgroundView = UIView()
     private let containerView = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 12
+        $0.clipsToBounds = false
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOffset = CGSize(width: 0, height: 4)
+        $0.layer.shadowRadius = 10
+        $0.layer.shadowOpacity = 0.3
+    }
+    
+    private let contentView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 12
         $0.clipsToBounds = true
@@ -39,17 +61,27 @@ class CatchSketchAlertController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.addSubview(backgroundView)
         view.addSubview(containerView)
+        containerView.addSubview(contentView)
         
-        [titleLabel, messageLabel, textField].compactMap { $0 }.forEach { containerView.addSubview($0) }
-        buttons.forEach { containerView.addSubview($0) }
+        [titleLabel, messageLabel, textField].compactMap { $0 }.forEach { contentView.addSubview($0) }
+        buttons.forEach { contentView.addSubview($0) }
     }
     
     private func setupConstraints() {
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         containerView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalTo(view.snp.width).multipliedBy(0.8)
+            make.width.equalTo(view.snp.width).multipliedBy(0.9)
+            make.height.lessThanOrEqualTo(view.snp.height).multipliedBy(0.8)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         var lastView: UIView?
@@ -72,7 +104,7 @@ class CatchSketchAlertController: UIViewController {
         for (index, button) in buttons.enumerated() {
             button.snp.makeConstraints { make in
                 if index == 0 {
-                    make.top.equalTo((lastView ?? containerView).snp.bottom).offset(20)
+                    make.top.equalTo((lastView ?? contentView).snp.bottom).offset(20)
                 } else {
                     make.top.equalTo(buttons[index-1].snp.top)
                     make.width.equalTo(buttons[index-1])
@@ -96,7 +128,6 @@ class CatchSketchAlertController: UIViewController {
         }
     }
     
-    
     func addTitle(_ title: String) -> Self {
         titleLabel = UILabel().then {
             $0.text = title
@@ -117,7 +148,6 @@ class CatchSketchAlertController: UIViewController {
         return self
     }
     
-    
     func addTextField(placeholder: String = "입력하세요") -> Self {
         textField = UITextField().then {
             $0.borderStyle = .roundedRect
@@ -126,12 +156,17 @@ class CatchSketchAlertController: UIViewController {
         return self
     }
     
+    func getTextFieldText() -> String? {
+        return textField?.text
+    }
     
-    func addButton(title: String, style: ButtonStyle = .clear, handler: (() -> Void)? = nil) -> Self {
+    func addButton(title: String,
+                   style: ButtonStyle = .clear,
+                   handler: (() -> Void)? = nil,
+                   rxHandler: ((String) -> Observable<String>)? = nil) -> Self {
         let button = UIButton(type: .system).then {
             $0.setTitle(title, for: .normal)
             switch style {
-                
             case .clear:
                 $0.setTitleColor(.mainGreen, for: .normal)
                 $0.backgroundColor = .clear
@@ -147,20 +182,35 @@ class CatchSketchAlertController: UIViewController {
             $0.layer.borderColor = CatchSketch.Color.mainGreen.cgColor
             $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         }
+        
         if let handler = handler {
-            button.addAction(UIAction { _ in handler() }, for: .touchUpInside)
+            button.rx.tap
+                .bind(onNext: handler)
+                .disposed(by: disposeBag)
+        } else if let rxHandler = rxHandler {
+            button.rx.tap
+                .flatMap { [weak self] _ -> Observable<String> in
+                    guard let self = self, let text = self.textField?.text else {
+                        return Observable.empty()
+                    }
+                    if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        self.view.shake()
+                        self.view.makeToast("정답을 입력해 주세요! 😝")
+                        return Observable.empty()
+                    }
+                    return rxHandler(text)
+                }
+                .subscribe(onNext: { [weak self] _ in
+                    self?.dismiss(animated: true)
+                })
+                .disposed(by: disposeBag)
         }
+        
         buttons.append(button)
         return self
     }
     
     static func create() -> CatchSketchAlertController {
         return CatchSketchAlertController()
-    }
-    
-    enum ButtonStyle {
-        case clear
-        case destructive
-        case filled
     }
 }
