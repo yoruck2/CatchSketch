@@ -15,6 +15,7 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "CATCH SKETCH"
         rootView.mainFeedCollectionView.register(MainFeedCollectionViewCell.self, forCellWithReuseIdentifier: "MainFeedCell")
         
         setupRefreshTokenExpiredHandler()
@@ -22,7 +23,8 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     
     override func bindViewModel() {
         let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in },
-                                            postSelected: rootView.mainFeedCollectionView.rx.modelSelected(PostResponse.Post.self))
+                                            postSelected: rootView.mainFeedCollectionView.rx.modelSelected(PostResponse.Post.self), 
+                                            prefetchingItem: rootView.mainFeedCollectionView.rx.prefetchItems, didScroll: rootView.mainFeedCollectionView.rx.didScroll)
         let output = viewModel.transform(input: input)
         
         output.posts
@@ -32,6 +34,8 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
             }
             .disposed(by: disposeBag)
         
+        rootView.mainFeedCollectionView.rx.didScroll
+//        rootView.mainFeedCollectionView.rx.
         output.refreshResult
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] result in
@@ -55,7 +59,6 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
         output.nextCursor
             .subscribe(onNext: { cursor in
                 print("Next cursor: \(cursor ?? "None")")
-                
             })
             .disposed(by: disposeBag)
     }

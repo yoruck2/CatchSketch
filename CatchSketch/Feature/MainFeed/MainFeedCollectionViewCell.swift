@@ -30,7 +30,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let uploadDateLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = UIFont(name: "KyoboHandwriting2019", size: 13)
         $0.textColor = .white
     }
     
@@ -40,7 +40,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let favoriteCountLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = CatchSketch.Font.medium12
         $0.textColor = .white
     }
     
@@ -50,7 +50,7 @@ final class MainFeedCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let answerCountLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = CatchSketch.Font.medium12
         $0.textColor = .white
     }
     
