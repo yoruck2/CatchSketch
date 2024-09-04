@@ -9,14 +9,17 @@ import UIKit
 
 extension CatchSketch {
     enum Font {
-        static let medium13 = UIFont.systemFont(ofSize: 13)
-        static let medium14 = UIFont.systemFont(ofSize: 14)
-        static let medium15 = UIFont.systemFont(ofSize: 15)
-        static let medium16 = UIFont.systemFont(ofSize: 16)
-        static let medium17 = UIFont.systemFont(ofSize: 17)
-        static let medium18 = UIFont.systemFont(ofSize: 18)
-        static let medium19 = UIFont.systemFont(ofSize: 19)
-        static let medium20 = UIFont.systemFont(ofSize: 20)
+        
+        
+        static let medium12 = UIFont(name: "KyoboHandwriting2019", size: 12)
+        static let medium13 = UIFont(name: "KyoboHandwriting2019", size: 13)
+        static let medium14 = UIFont(name: "KyoboHandwriting2019", size: 14)
+        static let medium15 = UIFont(name: "KyoboHandwriting2019", size: 15)
+        static let medium16 = UIFont(name: "KyoboHandwriting2019", size: 16)
+        static let medium17 = UIFont(name: "KyoboHandwriting2019", size: 17)
+        static let medium18 = UIFont(name: "KyoboHandwriting2019", size: 18)
+        static let medium19 = UIFont(name: "KyoboHandwriting2019", size: 19)
+        static let medium20 = UIFont(name: "KyoboHandwriting2019", size: 20)
         
         static let bold13 = UIFont.boldSystemFont(ofSize: 13)
         static let bold14 = UIFont.boldSystemFont(ofSize: 14)

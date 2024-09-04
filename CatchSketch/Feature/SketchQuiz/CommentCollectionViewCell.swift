@@ -163,7 +163,7 @@ class BubbleView: UIView {
             trianglePath.addLine(to: CGPoint(x: rect.width - 10, y: 40))
         }
         path.append(trianglePath)
-        UIColor.systemGray6.setFill()
+        CatchSketch.Color.skyBlue.setFill()
         path.fill()
     }
     
