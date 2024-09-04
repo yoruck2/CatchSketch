@@ -14,8 +14,11 @@ final class PostSketchView: BaseView {
     let quizImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
-        $0.backgroundColor = .lightGray
+        $0.layer.cornerRadius = 5
         $0.contentMode = .scaleToFill
+        
+        $0.layer.borderWidth = 2.0
+        $0.layer.borderColor = CatchSketch.Color.darkGreen.cgColor
     }
     
     let correctAnswerTextField = UITextField().then {

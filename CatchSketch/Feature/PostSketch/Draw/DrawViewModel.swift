@@ -46,7 +46,7 @@ class DrawViewModel: BaseViewModel {
             .withLatestFrom(Observable.combineLatest(input.drawingChanged, 
                                                      input.canvasBounds))
             .compactMap { drawing, bounds -> (PKDrawing, UIImage)? in
-                let image = drawing.image(from: bounds, scale: UIScreen.main.scale)
+                let image = drawing.image(from: bounds, scale: 1)
                 return (drawing, image)
             }
             .asDriver(onErrorDriveWith: .empty())

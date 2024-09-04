@@ -14,6 +14,7 @@ class DrawViewController: BaseViewController<DrawView> {
     let viewModel = DrawViewModel()
     private let disposeBag = DisposeBag()
     
+    // 델리게이트를 통해 canvas drawing에 변화가 생길 떄마다 저장
     private let drawingChanged = PublishSubject<PKDrawing>()
     private let canvasRect = BehaviorSubject<CGRect>(value: .zero)
     var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?

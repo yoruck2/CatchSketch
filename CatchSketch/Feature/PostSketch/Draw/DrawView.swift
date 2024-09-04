@@ -13,6 +13,7 @@ class DrawView: BaseView {
     let canvasView = PKCanvasView().then {
         $0.drawingPolicy = .anyInput
         $0.backgroundColor = .clear
+        $0.isOpaque = false
     }
     
     private let backgroundImageView = UIImageView().then {
