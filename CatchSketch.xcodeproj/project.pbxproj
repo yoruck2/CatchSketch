@@ -39,6 +39,7 @@
 		84321EA92C6F4FC100BA7FD7 /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EA82C6F4FC100BA7FD7 /* PostRequest.swift */; };
 		84321EAB2C6FC36400BA7FD7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EAA2C6FC36400BA7FD7 /* Profile.swift */; };
 		84321EAE2C6FE19100BA7FD7 /* LogInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321EAD2C6FE19100BA7FD7 /* LogInResponse.swift */; };
+		8487DCC82C86D95900D38A59 /* KyoboHandwriting2019.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8487DCC72C86D95900D38A59 /* KyoboHandwriting2019.otf */; };
 		84B1C4C42C7360550017585A /* MainFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */; };
 		84B1C4C72C73650C0017585A /* CatchSketchTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C62C73650C0017585A /* CatchSketchTabBarController.swift */; };
 		84B1C4C92C7368910017585A /* CatchSketchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1C4C82C7368910017585A /* CatchSketchNavigationController.swift */; };
@@ -110,6 +111,7 @@
 		84321EA82C6F4FC100BA7FD7 /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		84321EAA2C6FC36400BA7FD7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		84321EAD2C6FE19100BA7FD7 /* LogInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInResponse.swift; sourceTree = "<group>"; };
+		8487DCC72C86D95900D38A59 /* KyoboHandwriting2019.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KyoboHandwriting2019.otf; sourceTree = "<group>"; };
 		84B1C4C32C7360550017585A /* MainFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B1C4C62C73650C0017585A /* CatchSketchTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSketchTabBarController.swift; sourceTree = "<group>"; };
 		84B1C4C82C7368910017585A /* CatchSketchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSketchNavigationController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		84321E772C6DEF6300BA7FD7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				8487DCC62C86D93D00D38A59 /* Font */,
 				84D940BD2C71D2500054773B /* Constants */,
 				84321E6C2C6DEEE200BA7FD7 /* LaunchScreen.storyboard */,
 				84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */,
@@ -317,6 +320,14 @@
 				84B1C4CF2C7369750017585A /* Profile */,
 			);
 			path = Feature;
+			sourceTree = "<group>";
+		};
+		8487DCC62C86D93D00D38A59 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				8487DCC72C86D95900D38A59 /* KyoboHandwriting2019.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		84B1C4C52C7364F10017585A /* Controller */ = {
@@ -530,6 +541,7 @@
 			files = (
 				84321E762C6DEF3500BA7FD7 /* .gitignore in Resources */,
 				84321E6B2C6DEEE200BA7FD7 /* Assets.xcassets in Resources */,
+				8487DCC82C86D95900D38A59 /* KyoboHandwriting2019.otf in Resources */,
 				84321E6E2C6DEEE200BA7FD7 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

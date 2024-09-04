@@ -45,8 +45,6 @@ struct PostResponse: Decodable {
     }
 }
 
-
-
 struct ImageUploadResponse: Decodable {
     let files: [String]
 }

@@ -13,6 +13,7 @@ class NetworkService {
     static let shared = NetworkService()
     private init() {}
     
+    let dispoesBag = DisposeBag()
     var refreshTokenExpired: (() -> Void)?
     
     func request<T: Decodable>(api: Router) -> Single<Result<T, Error>> {
@@ -24,7 +25,8 @@ class NetworkService {
         }
     }
     
-    private func request<T: Decodable>(api: Router, observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
+    private func request<T: Decodable>(api: Router, 
+                                       observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
         let request: DataRequest
         
         switch api {
@@ -49,11 +51,13 @@ class NetworkService {
             }
     }
     
-    private func handleResponse<T: Decodable>(_ response: DataResponse<T, AFError>, api: Router, observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
-        dump("Request: \(String(describing: response.request))")
-        print("Request: \(String(describing: response.request?.headers))")
-        print("Response: \(String(describing: response.response))")
-        print("Result: \(String(describing: response.result))")
+    private func handleResponse<T: Decodable>(_ response: DataResponse<T, AFError>, 
+                                              api: Router,
+                                              observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
+//        dump("Request: \(String(describing: response.request))")
+//        print("Request: \(String(describing: response.request?.headers))")
+//        print("Response: \(String(describing: response.response))")
+//        print("Result: \(String(describing: response.result))")
         
         switch response.result {
         case .success(let value):
@@ -89,8 +93,7 @@ class NetworkService {
                 }, onFailure: { refreshError in
                     observer(.success(.failure(refreshError)))
                 })
-            // TODO: 안하니까 된다??
-                .disposed(by: DisposeBag())
+                .disposed(by: dispoesBag)
         case .expiredRefreshToken:
             DispatchQueue.main.async {
                 self.refreshTokenExpired?()
