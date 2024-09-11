@@ -24,7 +24,8 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     override func bindViewModel() {
         let input = MainFeedViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.asObservable().map { _ in },
                                             postSelected: rootView.mainFeedCollectionView.rx.modelSelected(PostResponse.Post.self), 
-                                            prefetchingItem: rootView.mainFeedCollectionView.rx.prefetchItems, didScroll: rootView.mainFeedCollectionView.rx.didScroll)
+                                            prefetchingItem: rootView.mainFeedCollectionView.rx.prefetchItems, 
+                                            didScroll: rootView.mainFeedCollectionView.rx.didScroll)
         let output = viewModel.transform(input: input)
         
         output.posts

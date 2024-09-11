@@ -26,7 +26,7 @@ enum APIError: Int, Error {
         case .invalidKey: return "Invalid API key"
         case .overRequest: return "Too many requests"
         case .invalidURL: return "Invalid URL"
-        case .serverError: return "Server error occurred"
+        case .serverError: return "Server error"
         case .invalidToken: return "인증할 수 없는 토큰입니다."
         case .expiredAccessToken: return "엑세스토큰 만료"
         case .expiredRefreshToken: return "리프레쉬토큰 만료"
