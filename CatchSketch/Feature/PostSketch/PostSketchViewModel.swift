@@ -13,6 +13,7 @@ class PostSketchViewModel {
     struct Input {
         let drawButtonTapped: ControlEvent<Void>
         let postButtonTapped: ControlEvent<Void>
+        let backButtonTapped: ControlEvent<Void>
         let drawingUpdated: Observable<(PKDrawing, UIImage)>
         let correctAnswerText: ControlProperty<String>
         let quizImage: Observable<UIImage?>
@@ -26,6 +27,7 @@ class PostSketchViewModel {
         let isPostValid: Driver<Bool>
         let postResult: Observable<Result<PostResponse.Post, Error>>
         let showAlert: Observable<String>
+        let backTrigger: Driver<Void>
     }
     
     private let disposeBag = DisposeBag()
@@ -59,14 +61,24 @@ class PostSketchViewModel {
                     self.showAlertRelay.accept("정답을 입력해 주세요")
                     return .empty()
                 }
+                guard (answer.range(of: "[^가-힣ㄱ-ㅎㅏ-ㅣ]", options: .regularExpression)) == nil
+                        && answer.count < 10 else {
+                    self.showAlertRelay.accept("11자 미만의 한글만 입력해주세요!")
+                    return .empty()
+                }
                 guard let image = image, let imageData = image.jpegData(compressionQuality: 0.8) else {
+                    
                     self.showAlertRelay.accept("이미지가 없습니다")
                     return .empty()
                 }
                 
+                
                 return self.uploadImageAndCreatePost(imageData: imageData, answer: answer)
             }
             .share()
+        
+        let backTrigger = input.backButtonTapped
+            .asDriver(onErrorJustReturn: ())
         
         return Output(
             currentDrawing: drawingRelay.asDriver(),
@@ -75,7 +87,8 @@ class PostSketchViewModel {
             correctAnswerText: nonEmptyCorrectAnswerText,
             isPostValid: isPostValid,
             postResult: postResult,
-            showAlert: showAlertRelay.asObservable()
+            showAlert: showAlertRelay.asObservable(),
+            backTrigger: backTrigger
         )
     }
     

@@ -42,4 +42,5 @@ class DrawView: BaseView {
             make.bottom.equalTo(safeAreaLayoutGuide).multipliedBy(0.91)
         }
     }
+    
 }

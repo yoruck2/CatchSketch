@@ -9,6 +9,7 @@ import UIKit
 import PencilKit
 import RxSwift
 import RxCocoa
+import Then
 
 class DrawViewController: BaseViewController<DrawView> {
     let viewModel = DrawViewModel()
@@ -19,13 +20,13 @@ class DrawViewController: BaseViewController<DrawView> {
     private let canvasRect = BehaviorSubject<CGRect>(value: .zero)
     var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
     
-    private lazy var saveButton: UIBarButtonItem = {
-        UIBarButtonItem(title: "저장", style: .plain, target: nil, action: nil)
-    }()
+    private lazy var saveButton = UIBarButtonItem(title: "저장",
+                                                 style: .plain,
+                                                 target: nil, action: nil)
     
-    private lazy var backButton: UIBarButtonItem = {
-        UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
-    }()
+    private lazy var backButton = UIBarButtonItem(title: "뒤로",
+                                                  style: .plain,
+                                                  target: nil, action: nil)
     
     init(rootView: DrawView, initialDrawing: PKDrawing?) {
         super.init(rootView: rootView)
@@ -34,6 +35,7 @@ class DrawViewController: BaseViewController<DrawView> {
         
         bindViewModel(initialDrawing: initialDrawing)
         setupCanvas()
+
     }
     
     // 화면 레이아웃이 완료되면, 캔버스의 현재 크기와 위치 정보를 가지고 구독한 곳에 알려준다
@@ -42,6 +44,10 @@ class DrawViewController: BaseViewController<DrawView> {
         canvasRect.onNext(rootView.canvasView.bounds)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
     private func setupCanvas() {
         rootView.canvasView.delegate = self
         rootView.toolPicker.addObserver(rootView.canvasView)

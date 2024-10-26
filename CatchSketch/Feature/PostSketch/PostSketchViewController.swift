@@ -7,13 +7,37 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import PencilKit
+import SnapKit
+import Then
 
 class PostSketchViewController: BaseViewController<PostSketchView> {
+    
     private let viewModel = PostSketchViewModel()
     private let disposeBag = DisposeBag()
     private var saveCompletionHandler: ((PKDrawing, UIImage) -> Void)?
-    
+    private let spring = UIImageView().then {
+        $0.image = UIImage(resource: .spring1)
+        $0.backgroundColor = .clear
+        }
+    private lazy var backButton = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                                  style: .plain,
+                                                  target: nil, action: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(spring)
+        view.backgroundColor = .clear
+        spring.snp.makeConstraints { make in
+            make.height.equalTo(35)
+            make.horizontalEdges.equalTo(rootView)
+            make.bottom.equalTo(rootView.snp.top).offset(76)
+        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
     override func bindViewModel() {
         let sketchData = Observable.create { [weak self] observer in
             self?.saveCompletionHandler = { drawing, image in
@@ -25,6 +49,7 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
         let input = PostSketchViewModel.Input(
             drawButtonTapped: rootView.drawSketchButton.rx.tap,
             postButtonTapped: rootView.sketchPostButton.rx.tap,
+            backButtonTapped: rootView.backButton.rx.tap,
             drawingUpdated: sketchData,
             correctAnswerText: rootView.correctAnswerTextField.rx.text.orEmpty,
             quizImage: rootView.quizImageView.rx.observe(UIImage.self, "image")
@@ -58,6 +83,12 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
         output.showAlert
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] message in
+                let alert = CatchSketchAlertController.create()
+                    .addMessage(message)
+                    .addButton(title: "확인",style: .clear) { [weak self] () -> Void in
+                        self?.dismiss(animated: true)
+                    }
+                self?.present(alert, animated: true)
                 self?.showAlert(message: message)
             })
             .disposed(by: disposeBag)
@@ -76,6 +107,13 @@ class PostSketchViewController: BaseViewController<PostSketchView> {
                 case .failure(let error):
                     self?.showAlert(message: "포스트 등록 실패: \(error.localizedDescription)")
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        output.backTrigger
+            .drive(onNext: { [weak self] in
+                print("🎉")
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
     }
