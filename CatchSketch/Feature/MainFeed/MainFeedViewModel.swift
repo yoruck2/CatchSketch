@@ -13,7 +13,7 @@ final class MainFeedViewModel {
     let disposeBag = DisposeBag()
     
     struct Input {
-        let viewWillAppearTrigger: Observable<Void>
+        let refreshTrigger: Observable<Void>
         let postSelected: ControlEvent<PostResponse.Post>
         let prefetchingItem: ControlEvent<[IndexPath]>
         let didScroll: ControlEvent<Void>
@@ -24,17 +24,25 @@ final class MainFeedViewModel {
         let posts: Observable<[PostResponse.Post]>
         let modelSelected: Observable<SketchQuizViewController>
         let nextCursor: Observable<String?>
+        let isRefreshing: Observable<Bool>
     }
     
     private let postList = BehaviorRelay<[PostResponse.Post]>(value: [])
     private let nextCursor = BehaviorRelay<String?>(value: nil)
     private let isLoading = BehaviorRelay<Bool>(value: false)
+    private let refreshTrigger = PublishSubject<Void>()
     
+    func loadInitialData() {
+        refreshTrigger.onNext(())
+    }
+    
+    func refreshData() {
+        refreshTrigger.onNext(())
+    }
     func transform(input: Input) -> Output {
         let nextVC = PublishSubject<SketchQuizViewController>()
-        var refreshResult: Observable<Result<PostResponse, Error>>
         
-        refreshResult = input.viewWillAppearTrigger
+        let refreshResult = Observable.merge(refreshTrigger.asObservable(), input.refreshTrigger)
             .flatMapLatest { [weak self] _ -> Observable<Result<PostResponse, Error>> in
                 guard let self = self else { return .empty() }
                 return self.fetchPosts(isRefresh: true)
@@ -89,7 +97,8 @@ final class MainFeedViewModel {
             refreshResult: refreshResult,
             posts: postList.asObservable(),
             modelSelected: nextVC,
-            nextCursor: nextCursor.asObservable()
+            nextCursor: nextCursor.asObservable(),
+            isRefreshing: isLoading.asObservable()
         )
     }
     
@@ -99,7 +108,7 @@ final class MainFeedViewModel {
         let cursor = isRefresh ? nil : nextCursor.value
         
         return NetworkService.shared.viewPost(query: .post(.postView(productID: "CatchSketch_global",
-                                                                     cursor: cursor, 
+                                                                     cursor: cursor,
                                                                      limit: "10")))
         .asObservable()
         .do(onNext: { [weak self] result in

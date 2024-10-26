@@ -7,16 +7,29 @@
 
 import UIKit
 import SnapKit
+import Then
 
 class MainFeedView: BaseView {
     
-    private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "paper3")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    private let backgroundImageView = UIImageView().then {
+        $0.image = UIImage(resource: .paper1)
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+    }
+    let mainNavigation = UIImageView().then {
+        $0.image = UIImage(resource: .reversedTornSketchbook)
+        $0.isUserInteractionEnabled = true
+    }
+    let logoImage = UIImageView().then {
+        $0.image = UIImage(resource: .logo2)
+    }
+    
+    let profileButton = UIImageView().then {
+        $0.image = UIImage(systemName: "person.circle")
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.layer.cornerRadius = 20
+    }
     
     lazy var mainFeedCollectionView: UICollectionView = {
         let layout = CenteredCollectionViewFlowLayout()
@@ -37,15 +50,37 @@ class MainFeedView: BaseView {
     override func configureHierarchy() {
         addSubview(backgroundImageView)
         addSubview(mainFeedCollectionView)
+        addSubview(mainNavigation)
+        mainNavigation.addSubview(logoImage)
+        mainNavigation.addSubview(profileButton)
+        
     }
     
     override func configureLayout() {
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         mainFeedCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        mainNavigation.snp.makeConstraints { make in
+
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.top).offset(60)
+            make.width.equalToSuperview().multipliedBy(1.1)
+            make.centerX.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.33)
+        }
+        logoImage.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(35)
+            make.bottom.equalToSuperview()
+            make.width.equalTo(140)
+            make.height.equalTo(90)
+        }
+        profileButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(38)
+            make.bottom.equalToSuperview().inset(25)
+            make.width.equalTo(45)
+            make.height.equalTo(45)
         }
     }
 }
