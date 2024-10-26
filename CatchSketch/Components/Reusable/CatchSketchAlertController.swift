@@ -197,6 +197,10 @@ class CatchSketchAlertController: UIViewController {
                         self.view.shake()
                         self.view.makeToast("정답을 입력해 주세요! 😝")
                         return Observable.empty()
+                    } else if  text.count > 13 {
+                        self.view.shake()
+                        self.view.makeToast("12글자 이내로 적어주세요! 😝")
+                        return Observable.empty()
                     }
                     return rxHandler(text)
                 }
