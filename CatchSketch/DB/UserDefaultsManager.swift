@@ -7,15 +7,21 @@
 
 import Foundation
 
+struct UserData: Codable {
+    let userID: String
+    let email: String
+    let nickname: String
+    let profileImage: String
+}
+
 class UserDefaultsManager {
     // TODO: propertyWrapper + generic 으로 리팩토링
     enum UserDefaultsKey: String {
         case access
         case refresh
-        case userID
-        case email
+        case userData
     }
-
+    
     static let shared = UserDefaultsManager()
     private init() {}
     
@@ -37,20 +43,37 @@ class UserDefaultsManager {
             UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.refresh.rawValue)
         }
     }
-    var userID: String {
+    
+    var userData: UserData? {
         get {
-            UserDefaults.standard.string(forKey: UserDefaultsKey.userID.rawValue) ?? ""
+            guard let data = UserDefaults.standard.data(forKey: UserDefaultsKey.userData.rawValue) else {
+                return nil
+            }
+            return try? JSONDecoder().decode(UserData.self, from: data)
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.userID.rawValue)
+            guard let newValue = newValue,
+                  let data = try? JSONEncoder.encode(with: newValue) else {
+                UserDefaults.standard.removeObject(forKey: UserDefaultsKey.userData.rawValue)
+                return
+            }
+            UserDefaults.standard.set(data, forKey: UserDefaultsKey.userData.rawValue)
         }
     }
-    var email: String {
-        get {
-            UserDefaults.standard.string(forKey: UserDefaultsKey.email.rawValue) ?? ""
-        }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: UserDefaultsKey.email.rawValue)
-        }
-    }    
+    
+    func updateUserData(userID: String? = nil,
+                        email: String? = nil,
+                        nickname: String? = nil,
+                        profileImage: String? = nil) {
+        let currentData = userData ?? UserData(userID: "", email: "", nickname: "", profileImage: "")
+        let updatedData = UserData(
+            userID: userID ?? currentData.userID,
+            email: email ?? currentData.email,
+            nickname: nickname ?? currentData.nickname,
+            profileImage: profileImage ?? currentData.profileImage)
+        userData = updatedData
+    }
+    func clearUserData() {
+        UserDefaults.standard.removeObject(forKey: UserDefaultsKey.userData.rawValue)
+    }
 }
