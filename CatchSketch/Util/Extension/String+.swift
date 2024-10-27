@@ -47,4 +47,21 @@ extension String {
         }
         return Date()
     }
+    
+    func calculateLevel() -> (String, Float) {
+        guard let exp = Float(self), exp >= 0 else {
+            return ("0",0)
+        }
+        
+        let level = Int(log(exp / 100) / log(1.1))
+        
+        // 현재 레벨까지 필요한 총 경험치 계산
+        let currentLevelExp = 100 * pow(1.1, Float(level))
+        
+        // 다음 레벨까지의 진행도 계산 (0 ~ 1 사이 값)
+        let progress = (exp - currentLevelExp) / (currentLevelExp * 0.1)
+        
+        // 0 -> 레벨 , 2 -> 진행도 비율
+        return (String(max(0, level)), min(max(0, progress), 1))
+    }
 }
