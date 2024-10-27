@@ -24,6 +24,7 @@ enum Router {
         case uploadImage(files: Data)
         case create(post: PostRequest)
         case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
+        case specificView(postID: String)
         case postComment(comment: PostRequest.Comment, postID: String)
     }
     enum ProfileEndpoint {
@@ -54,7 +55,7 @@ extension Router: TargetType {
             switch endpoint {
             case .uploadImage, .create, .postComment:
                 return .post
-            case .postView:
+            case .postView, .specificView:
                 return .get
             }
         }
@@ -81,6 +82,8 @@ extension Router: TargetType {
                 return "/posts/files"
             case .postView, .create:
                 return "/posts"
+            case .specificView(let postID):
+                return "/posts/\(postID)"
             case .postComment( _, let postID):
                 return "/posts/\(postID)/comments"
             }
@@ -114,6 +117,9 @@ extension Router: TargetType {
             case .postComment(comment: let comment, postID: let postID):
                 headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
+            case .specificView(postID: let postID):
+                headers[Header.contentType.rawValue] = Header.json.rawValue
+                headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             }
         case .profile(let endpoint):
             switch endpoint {
@@ -143,14 +149,13 @@ extension Router: TargetType {
             }
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage, .postComment, .create:
+            case .uploadImage, .postComment, .create, .specificView:
                 return nil
             case .postView(let productID, let cursor, let limit):
                 return ["product_id": productID ?? "", "next": cursor ?? "", "limit": limit ?? ""]
             }
         }
     }
-    
     var body: Data? {
         switch self {
         case .auth(let endpoint):
@@ -177,7 +182,7 @@ extension Router: TargetType {
                 return try? JSONEncoder.encode(with: files)
             case .create(let post):
                 return try? JSONEncoder.encode(with: post)
-            case .postView:
+            case .postView, .specificView:
                 return nil
             case .postComment(let comment, let postID):
                 return try? JSONEncoder.encode(with: comment)
