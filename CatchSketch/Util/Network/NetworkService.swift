@@ -48,6 +48,8 @@ class NetworkService {
         request.validate(statusCode: 200..<300)
             .responseDecodable(of: T.self) { [weak self] response in
                 self?.handleResponse(response, api: api, observer: observer)
+                
+                print("✨✨✨Response: \(String(describing: response.response?.statusCode))")
             }
     }
     
@@ -55,9 +57,9 @@ class NetworkService {
                                               api: Router,
                                               observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
 //        dump("Request: \(String(describing: response.request))")
-//        print("Request: \(String(describing: response.request?.headers))")
-//        print("Response: \(String(describing: response.response))")
-//        print("Result: \(String(describing: response.result))")
+        print("Request: \(String(describing: response.request?.headers))")
+        print("Response: \(String(describing: response.response))")
+        print("Result: \(String(describing: response.result))")
         
         switch response.result {
         case .success(let value):

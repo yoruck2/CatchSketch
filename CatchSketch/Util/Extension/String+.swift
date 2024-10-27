@@ -8,11 +8,12 @@
 import Foundation
 
 extension String {
+    static var formatter = ISO8601DateFormatter()
     func toRelativeTimeString() -> String {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         
-        guard let date = formatter.date(from: self) else {
+        String.formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        guard let date = String.formatter.date(from: self) else {
             return self // 파싱 실패 시 원본 문자열 반환
         }
         
@@ -34,5 +35,16 @@ extension String {
         } else {
             return "방금 전"
         }
+    }
+    
+    func toDate() -> Date {
+        String.formatter.formatOptions = [
+            .withInternetDateTime,
+            .withFractionalSeconds
+        ]
+        if let date = String.formatter.date(from: self) {
+            return date
+        }
+        return Date()
     }
 }

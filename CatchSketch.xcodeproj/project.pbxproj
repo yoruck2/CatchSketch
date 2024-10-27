@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8417976D2CA53EA7005B6CC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */; };
 		841D75DA2C7F120200159EA1 /* SketchQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75D92C7F120200159EA1 /* SketchQuizViewController.swift */; };
 		841D75DC2C7F121200159EA1 /* SketchQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75DB2C7F121200159EA1 /* SketchQuizViewModel.swift */; };
 		841D75DE2C7F121B00159EA1 /* SketchQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D75DD2C7F121B00159EA1 /* SketchQuizView.swift */; };
@@ -18,7 +19,6 @@
 		84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E612C6DEEE000BA7FD7 /* AppDelegate.swift */; };
 		84321E642C6DEEE000BA7FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E632C6DEEE000BA7FD7 /* SceneDelegate.swift */; };
 		84321E662C6DEEE000BA7FD7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E652C6DEEE000BA7FD7 /* SignUpView.swift */; };
-		84321E6B2C6DEEE200BA7FD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84321E6A2C6DEEE200BA7FD7 /* Assets.xcassets */; };
 		84321E6E2C6DEEE200BA7FD7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 84321E6D2C6DEEE200BA7FD7 /* Base */; };
 		84321E762C6DEF3500BA7FD7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 84321E752C6DEF3500BA7FD7 /* .gitignore */; };
 		84321E7E2C6DF41D00BA7FD7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84321E7D2C6DF41D00BA7FD7 /* NetworkService.swift */; };
@@ -78,6 +78,8 @@
 		84DFFB7D2C78C5D10014EAD3 /* PostSketchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7C2C78C5D10014EAD3 /* PostSketchViewModel.swift */; };
 		84DFFB7F2C79E1690014EAD3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */; };
 		84DFFB812C7A6DB40014EAD3 /* ImageUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */; };
+		84F477912CC8F41100DCD6F9 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F477902CC8F41100DCD6F9 /* ReuseIdentifierProtocol.swift */; };
+		84F477932CC9929000DCD6F9 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F477922CC9929000DCD6F9 /* TestViewController.swift */; };
 		84F631C52C760792005D4C06 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F631C42C760792005D4C06 /* PostResponse.swift */; };
 		84FD0F732C7DC4E100EFA4E1 /* PostInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */; };
 		84FD0F762C7DED8100EFA4E1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 84FD0F752C7DED8100EFA4E1 /* Kingfisher */; };
@@ -151,6 +153,8 @@
 		84DFFB7C2C78C5D10014EAD3 /* PostSketchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSketchViewModel.swift; sourceTree = "<group>"; };
 		84DFFB7E2C79E1690014EAD3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		84DFFB802C7A6DB40014EAD3 /* ImageUploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadResponse.swift; sourceTree = "<group>"; };
+		84F477902CC8F41100DCD6F9 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		84F477922CC9929000DCD6F9 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		84F631C42C760792005D4C06 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfoLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -316,6 +320,7 @@
 		84321EAC2C6FD90E00BA7FD7 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				84F477922CC9929000DCD6F9 /* TestViewController.swift */,
 				84D940CD2C7224E30054773B /* Authentication */,
 				84D940CE2C7246AA0054773B /* MainFeed */,
 				841D75D82C7F0F2100159EA1 /* SketchQuiz */,
@@ -418,7 +423,6 @@
 		84D940C52C71D92D0054773B /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
-				84B1C4C52C7364F10017585A /* Controller */,
 				84D940C62C71D93A0054773B /* SignTextField.swift */,
 				84D940C82C71D96F0054773B /* ConfirmButton.swift */,
 				84FD0F722C7DC4E100EFA4E1 /* PostInfoLabel.swift */,
@@ -430,7 +434,9 @@
 		84D940CA2C71DD380054773B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				84B1C4C52C7364F10017585A /* Controller */,
 				84D940CB2C71DD490054773B /* BaseViewModel.swift */,
+				84F477902CC8F41100DCD6F9 /* ReuseIdentifierProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -542,8 +548,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8417976D2CA53EA7005B6CC0 /* Assets.xcassets in Resources */,
 				84321E762C6DEF3500BA7FD7 /* .gitignore in Resources */,
-				84321E6B2C6DEEE200BA7FD7 /* Assets.xcassets in Resources */,
 				8487DCC82C86D95900D38A59 /* KyoboHandwriting2019.otf in Resources */,
 				84321E6E2C6DEEE200BA7FD7 /* Base in Resources */,
 			);
@@ -574,6 +580,7 @@
 				841D75DC2C7F121200159EA1 /* SketchQuizViewModel.swift in Sources */,
 				84321E9F2C6E1D9400BA7FD7 /* Header.swift in Sources */,
 				84321E622C6DEEE000BA7FD7 /* AppDelegate.swift in Sources */,
+				84F477932CC9929000DCD6F9 /* TestViewController.swift in Sources */,
 				84D940C72C71D93A0054773B /* SignTextField.swift in Sources */,
 				84D940C42C71D7B90054773B /* LogInViewModel.swift in Sources */,
 				84321EAB2C6FC36400BA7FD7 /* Profile.swift in Sources */,
@@ -590,6 +597,7 @@
 				84D940BE2C71D2500054773B /* Constants + AssetColor.swift in Sources */,
 				84DFFB812C7A6DB40014EAD3 /* ImageUploadResponse.swift in Sources */,
 				84B1C4CE2C7369030017585A /* PostSketchView.swift in Sources */,
+				84F477912CC8F41100DCD6F9 /* ReuseIdentifierProtocol.swift in Sources */,
 				84D940B42C71D1F10054773B /* BaseCollectionViewCell.swift in Sources */,
 				84321E7E2C6DF41D00BA7FD7 /* NetworkService.swift in Sources */,
 				84DFFB7F2C79E1690014EAD3 /* ProfileViewModel.swift in Sources */,
@@ -693,6 +701,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

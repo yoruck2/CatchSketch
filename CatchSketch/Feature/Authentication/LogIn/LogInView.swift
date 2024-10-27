@@ -21,7 +21,8 @@ final class LogInView: BaseView {
     }
     
     let emailTextField = SignTextField(placeholderText: "이메일을 입력해주세요").then {
-        $0.text = "yoruck2"
+//        $0.text = "yoruck2"
+        $0.text = "야옹"
         $0.backgroundColor = .white
     }
     let passwordTextField = SignTextField(placeholderText: "비밀번호를 입력해주세요").then {

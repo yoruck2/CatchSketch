@@ -21,3 +21,17 @@ extension JSONEncoder {
         }
     }
 }
+extension JSONDecoder {
+    
+    static let jsonDecoder = JSONDecoder()
+    
+    static func decode<D: Decodable>(_ type: D.Type, from data: Data) throws -> D {
+        do {
+            let result = try jsonDecoder.decode(type, from: data)
+            return result
+        } catch {
+            print("디코딩 실패: \(error)")
+            throw error
+        }
+    }
+}
