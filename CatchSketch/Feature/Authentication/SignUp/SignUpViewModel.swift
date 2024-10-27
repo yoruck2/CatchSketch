@@ -25,7 +25,7 @@ final class SignUpViewModel {
     
     func transform(input: Input) -> Output {
         let signUpQuery = Observable.combineLatest(input.emailText, input.passwordText, input.nicknameText)
-            .map { AuthQuery.SignUp(email: $0, password: $1, nick: $2) }
+            .map { AuthQuery.SignUp(email: $0, password: $1, nick: $2, coin: "5", exp: "0") }
             .share(replay: 1)
         
         let result = input.tap

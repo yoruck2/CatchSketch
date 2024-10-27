@@ -38,7 +38,7 @@ final class SignUpViewController: BaseViewController<SignUpView> {
                     case 409:
                         owner.showAlert(title: "중복 닉네임",
                                         message: "다른분이 사용중인 이메일 또는 닉네임 입니다.\n다른 닉네임을 입력해주세요!")
-                    default: 
+                    default:
                         print(error)
                         return
                     }
@@ -53,10 +53,10 @@ final class SignUpViewController: BaseViewController<SignUpView> {
             }.disposed(by: disposeBag
             )
         // TODO: 임시 주석
-//        output.isValidEmail
-//            .bind(with: self) { owner, value in
-//                owner.rootView.signUpButton.isEnabled = value
-//            }
-//            .disposed(by: disposeBag)
+        //        output.isValidEmail
+        //            .bind(with: self) { owner, value in
+        //                owner.rootView.signUpButton.isEnabled = value
+        //            }
+        //            .disposed(by: disposeBag)
     }
 }
