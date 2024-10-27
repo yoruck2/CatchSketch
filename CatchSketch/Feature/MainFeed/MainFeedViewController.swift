@@ -29,6 +29,7 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        viewModel.loadInitialData()
     }
     @objc private func refreshData() {
         viewModel.refreshData()
@@ -89,6 +90,12 @@ final class MainFeedViewController: BaseViewController<MainFeedView> {
         
         output.isRefreshing
             .bind(to: rootView.mainFeedCollectionView.refreshControl?.rx.isRefreshing ?? Binder(self) { _, _ in })
+            .disposed(by: disposeBag)
+        
+        output.userInfo
+            .bind(with: self) { owner, value in
+                owner.rootView.userInfoView.setUpData(data: value)
+            }
             .disposed(by: disposeBag)
     }
 }

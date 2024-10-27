@@ -9,20 +9,21 @@ import UIKit
 import SnapKit
 import Then
 
-class MainFeedView: BaseView {
+final class MainFeedView: BaseView {
     
     private let backgroundImageView = UIImageView().then {
         $0.image = UIImage(resource: .paper1)
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
     }
-    let mainNavigation = UIImageView().then {
+    private let mainNavigation = UIImageView().then {
         $0.image = UIImage(resource: .reversedTornSketchbook)
         $0.isUserInteractionEnabled = true
     }
-    let logoImage = UIImageView().then {
+    private let logoImage = UIImageView().then {
         $0.image = UIImage(resource: .logo2)
     }
+    let userInfoView = UserInfoView()
     
     let profileButton = UIImageView().then {
         $0.image = UIImage(systemName: "person.circle")
@@ -51,9 +52,9 @@ class MainFeedView: BaseView {
         addSubview(backgroundImageView)
         addSubview(mainFeedCollectionView)
         addSubview(mainNavigation)
+        mainNavigation.addSubview(userInfoView)
         mainNavigation.addSubview(logoImage)
         mainNavigation.addSubview(profileButton)
-        
     }
     
     override func configureLayout() {
@@ -64,7 +65,6 @@ class MainFeedView: BaseView {
             make.edges.equalTo(safeAreaLayoutGuide)
         }
         mainNavigation.snp.makeConstraints { make in
-
             make.bottom.equalTo(safeAreaLayoutGuide.snp.top).offset(60)
             make.width.equalToSuperview().multipliedBy(1.1)
             make.centerX.equalToSuperview()
@@ -76,8 +76,12 @@ class MainFeedView: BaseView {
             make.width.equalTo(140)
             make.height.equalTo(90)
         }
+        userInfoView.snp.makeConstraints { make in
+            make.top.equalTo(profileButton).offset(4)
+            make.trailing.equalTo(profileButton.snp.leading)
+        }
         profileButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(38)
+            make.trailing.equalToSuperview().inset(30)
             make.bottom.equalToSuperview().inset(25)
             make.width.equalTo(45)
             make.height.equalTo(45)

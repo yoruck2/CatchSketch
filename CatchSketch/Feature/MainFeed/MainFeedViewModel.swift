@@ -25,8 +25,9 @@ final class MainFeedViewModel {
         let modelSelected: Observable<SketchQuizViewController>
         let nextCursor: Observable<String?>
         let isRefreshing: Observable<Bool>
+        let userInfo: Observable<ProfileResponse>
     }
-    
+    private var userInfo = PublishSubject<ProfileResponse>()
     private let postList = BehaviorRelay<[PostResponse.Post]>(value: [])
     private let nextCursor = BehaviorRelay<String?>(value: nil)
     private let isLoading = BehaviorRelay<Bool>(value: false)
@@ -73,6 +74,17 @@ final class MainFeedViewModel {
             .bind(to: nextCursor)
             .disposed(by: disposeBag)
         
+        NetworkService.shared.fetchMyProfile(query: .profile(.fetch))
+            .subscribe(with: self) { owner, result in
+                switch result {
+                case .success(let value):
+                    owner.userInfo.onNext(value)
+                case .failure(let error):
+                    owner.userInfo.onError(error)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         input.postSelected
             .subscribe { post in
                 nextVC.onNext(SketchQuizViewController(data: post))
@@ -98,7 +110,8 @@ final class MainFeedViewModel {
             posts: postList.asObservable(),
             modelSelected: nextVC,
             nextCursor: nextCursor.asObservable(),
-            isRefreshing: isLoading.asObservable()
+            isRefreshing: isLoading.asObservable(),
+            userInfo: userInfo.asObservable()
         )
     }
     
