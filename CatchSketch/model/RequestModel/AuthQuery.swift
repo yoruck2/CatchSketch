@@ -12,6 +12,17 @@ struct AuthQuery {
         let email: String
         let password: String
         let nick: String
+        let coin: String // 재화로 쓰임
+        let exp: String
+        
+        enum CodingKeys: String, CodingKey {
+            case email
+            case password
+            case nick
+            case coin = "phoneNum"
+            case exp = "birthDay"
+        }
+        
     }
     struct EmailValidation: Encodable {
         let email: String
