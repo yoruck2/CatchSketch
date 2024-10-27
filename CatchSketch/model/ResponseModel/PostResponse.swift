@@ -34,7 +34,7 @@ struct PostResponse: Decodable {
     struct Comment: Codable {
         let comment_id: String?
         let content: String?
-        let createdAt: String?
+        let createdAt: String
         let creator: Creator?
     }
 
