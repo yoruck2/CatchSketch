@@ -30,13 +30,7 @@ final class SketchQuizViewController: BaseViewController<SketchQuizView> {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: ""),
-                                                            style: .plain,
-                                                            target: nil,
-                                                            action: nil)
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false

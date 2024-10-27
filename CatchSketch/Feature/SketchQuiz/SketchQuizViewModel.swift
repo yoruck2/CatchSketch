@@ -80,8 +80,9 @@ class SketchQuizViewModel {
                     // UI 업데이트
                     var currentComments = self.output.commentData.value
                     currentComments.append(commentResponse)
-                    self.output.commentData.accept(currentComments.reversed())
-//                    self.output.alertAction.onNext(.confirm(text))
+                    let orderedComments = currentComments
+                        .sorted { $0.createdAt.toDate() > $1.createdAt.toDate() }
+                    self.output.commentData.accept(orderedComments)
                         
                     // 업데이트된 전체 게시물 정보 가져오기
                     return self.fetchUpdatedPost()
