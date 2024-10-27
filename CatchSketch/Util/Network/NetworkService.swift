@@ -25,7 +25,7 @@ class NetworkService {
         }
     }
     
-    private func request<T: Decodable>(api: Router, 
+    private func request<T: Decodable>(api: Router,
                                        observer: @escaping (SingleEvent<Result<T, Error>>) -> Void) {
         let request: DataRequest
         
@@ -124,6 +124,9 @@ extension NetworkService {
         return request(api: query)
     }
     func signUp(query: Router) -> Single<Result<Profile, Error>> {
+        return request(api: query)
+    }
+    func fetchMyProfile(query: Router) -> Single<Result<ProfileResponse, Error>> {
         return request(api: query)
     }
     
