@@ -18,7 +18,7 @@ final class SignUpViewModel {
         let nicknameText: ControlProperty<String>
     }
     struct Output {
-        let signUpResult: Observable<Result<Profile, Error>>
+        let signUpResult: Observable<Result<ProfileResponse, Error>>
         let isSignUpVaild: Observable<Bool>
         //        let isValidEmail: Observable<Bool>
     }

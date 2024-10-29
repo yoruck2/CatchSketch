@@ -89,7 +89,7 @@ final class PostSketchView: BaseView {
             make.bottom.equalToSuperview()
         }
         backButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(25)
             make.leading.equalToSuperview().inset(10)
             make.size.equalTo(50)
         }
