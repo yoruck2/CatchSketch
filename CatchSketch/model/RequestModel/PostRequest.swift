@@ -19,18 +19,12 @@ struct PostRequest: Encodable {
 //    let content5: String?
     
     let files: [String]?
-    
-    
-    
-//    struct View: Encodable {
-//        let product_id: String?
-//        let next: String?
-//        let limit: String?
-//    }
+
     struct Comment: Encodable {
         let content: String?
     }
 }
+
 struct ImageUpload: Encodable {
     let files: [Data]
 }
