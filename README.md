@@ -4,9 +4,9 @@
 >개발환경<br><br>
 ![Static Badge](https://img.shields.io/badge/Xcode-15.4-blue) ![Static Badge](https://img.shields.io/badge/Swift-5.10-orange) ![Static Badge](https://img.shields.io/badge/iOS-16.0%2B-pink)
 ><br>
-기간: 2024.09.10 ~ 2024.10.02 (약 4주)
+기간: 2024.08.13 ~ 2024.09.02 (약 3주)
 ><br>
-인원: 1명
+인원: iOS 1명, backEnd 1명
 ## 📷 ScreenShot
 
 |로그인 및 회원가입|메인피드|문제상세|문제내기|그림그리기|
