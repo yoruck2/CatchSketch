@@ -10,7 +10,6 @@ import Toast
 import RxSwift
 import RxCocoa
 
-// TODO: 정답 제시 시 댓글 정렬 바뀜
 final class SketchQuizViewController: BaseViewController<SketchQuizView> {
     private let disposeBag = DisposeBag()
     private let viewModel: SketchQuizViewModel
@@ -33,11 +32,11 @@ final class SketchQuizViewController: BaseViewController<SketchQuizView> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = false
     }
 
     override func bindViewModel() {
-        let input = SketchQuizViewModel.Input(catchButtonTap: rootView.catchButton.rx.tap)
+        let input = SketchQuizViewModel.Input(catchButtonTapped: rootView.catchButton.rx.tap, 
+                                              backButtonTapped: rootView.backButton.rx.tap)
         let output = viewModel.transform(input: input)
         
         output.commentData
@@ -50,6 +49,12 @@ final class SketchQuizViewController: BaseViewController<SketchQuizView> {
                     cell.setUpCellData(with: .commenter, data: comment)
                 }
             }.disposed(by: disposeBag)
+        
+        output.dismissTrigger
+            .bind { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
         
         output.showAlert
             .bind { [weak self] alert in
