@@ -123,12 +123,10 @@ extension NetworkService {
     func logIn(query: Router) -> Single<Result<LogInResponse, Error>> {
         return request(api: query)
     }
-    func signUp(query: Router) -> Single<Result<Profile, Error>> {
+    func signUp(query: Router) -> Single<Result<ProfileResponse, Error>> {
         return request(api: query)
     }
-    func fetchMyProfile(query: Router) -> Single<Result<ProfileResponse, Error>> {
-        return request(api: query)
-    }
+    
     
     // 포스트 전체조회, 특정포스트 조회
     func viewPost(query: Router) -> Single<Result<PostResponse, Error>> {
@@ -159,6 +157,16 @@ extension NetworkService {
     func postComment(query: Router) -> Single<Result<PostResponse.Comment, Error>> {
         return request(api: query)
     }
-    
+    // 좋아요
+    func toggleLike(query: Router) -> Single<Result<Like, Error>> {
+        return request(api: query)
+    }
+    func fetchMyProfile(query: Router) -> Single<Result<ProfileResponse, Error>> {
+        return request(api: query)
+    }
+    func editProfile(query: Router) -> Single<Result<ProfileResponse, Error>> {
+        return request(api: query)
+    }
 }
+
 

@@ -25,11 +25,12 @@ enum Router {
         case create(post: PostRequest)
         case postView(productID: String? = "", cursor: String? = "", limit: String? = "")
         case specificView(postID: String)
+        case like(postID: String, isLike: Like)
         case postComment(comment: PostRequest.Comment, postID: String)
     }
     enum ProfileEndpoint {
         case fetch
-        case edit(data: Profile.Edit)
+        case edit(data: ProfileRequest.Edit)
     }
 }
 
@@ -53,7 +54,7 @@ extension Router: TargetType {
             }
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage, .create, .postComment:
+            case .uploadImage, .create, .postComment, .like:
                 return .post
             case .postView, .specificView:
                 return .get
@@ -65,7 +66,7 @@ extension Router: TargetType {
         switch self {
         case .auth(let endpoint):
             switch endpoint {
-            case .SignUp: 
+            case .SignUp:
                 return "/users/join"
             case .login:
                 return "/users/login"
@@ -78,7 +79,7 @@ extension Router: TargetType {
             return "/users/me/profile"
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage: 
+            case .uploadImage:
                 return "/posts/files"
             case .postView, .create:
                 return "/posts"
@@ -86,6 +87,8 @@ extension Router: TargetType {
                 return "/posts/\(postID)"
             case .postComment( _, let postID):
                 return "/posts/\(postID)/comments"
+            case .like(let postID, _):
+                return "/posts/\(postID)/like"
             }
         }
     }
@@ -120,6 +123,9 @@ extension Router: TargetType {
             case .specificView(postID: let postID):
                 headers[Header.contentType.rawValue] = Header.json.rawValue
                 headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
+            case .like(postID: let postID):
+                headers[Header.contentType.rawValue] = Header.json.rawValue
+                headers[Header.authorization.rawValue] = UserDefaultsManager.shared.accessToken
             }
         case .profile(let endpoint):
             switch endpoint {
@@ -149,7 +155,7 @@ extension Router: TargetType {
             }
         case .post(let endpoint):
             switch endpoint {
-            case .uploadImage, .postComment, .create, .specificView:
+            case .uploadImage, .postComment, .create, .specificView, .like:
                 return nil
             case .postView(let productID, let cursor, let limit):
                 return ["product_id": productID ?? "", "next": cursor ?? "", "limit": limit ?? ""]
@@ -186,6 +192,8 @@ extension Router: TargetType {
                 return nil
             case .postComment(let comment, let postID):
                 return try? JSONEncoder.encode(with: comment)
+            case .like(let postID, let isLike):
+                return try? JSONEncoder.encode(with: isLike)
             }
         }
     }
