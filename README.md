@@ -40,9 +40,16 @@
     - Observable과 Subject를 활용한 반응형 프로그래밍으로 UI업데이트를 자동화 및 데이터 상태 관리 구현
     - View와 ViewModel 간의 결합도를 낮추고 코드의 가독성과 유지보수성을 향상
 - `Networking`
-    - Alamofire의 URLRequestConvertible를 채택한 TargetType으로 라우터 추상화
-    - TargetType을 채택한 라우터 패턴으로 구조적이고 유연한 네트워크 계층 구성
-    - 제네릭을 사용한 네트워크 추상화 및 재사용성 향상
-- `PencilKit`
-    - PKCanvas를 통한 드로잉 구현, delegate 패턴과 RxSwift를 활용해 PKDrawing 데이터 전달
-    - PKDrawing.image 로 특정한 사이즈로 그림을 이미지로 저장
+    - URLRequestConvertible 프로토콜 기반의 Router 패턴 추상화로 재사용성 향상
+    - 제네릭을 활용하여 네트워크 추상화 및 재사용성 향상
+    - RxSwift의 Single trait과 Result 타입을 조합하여 네트워크 응답 처리
+    - HTTP multipart 타입을 통하여 png 그림파일 업로드
+- `PencilKit을 활용한 그림 문제 만들기`
+    - PKCanvas를 통한 그림 그리기 기능 구현
+    - PKCanvasViewDelegate와 RxSwift를 활용한 그림 데이터 업데이트
+    - PKDrawing.image 로 그림을  특정한 사이즈의 이미지로 생성
+- 사용자 인증
+    - JWT 기반의 회원인증 구현
+    - 재귀 함수를 통한 토큰 갱신 성공 시 기존 네트워크 재호출
+    - UserDefaults를 통한 access ˙ refresh 토큰 관리
+    - refresh토큰을 활용하여 탈취 위험을 최소화하고, 자동 로그인 구현
